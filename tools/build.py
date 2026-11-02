@@ -223,7 +223,7 @@ companies = head("For Companies","Full digital presence for businesses.","Social
 page("companies.html","Companies | Full digital presence and HR chatbot | SOLO Agency","Campaign management, content production, paid ads, reporting, and HR chatbot automation for businesses.", companies)
 
 # ---------------- RESULTS ----------------
-gal = [("business-portfolio.jpg","Business and brand portfolio overview"),("influencers-portfolio.jpg","Creator network overview"),("results-analytics.jpg","Meta Ads analytics dashboard"),("results-growth.jpg","Instagram growth, 0 to 20K"),("client-sample-videos.jpg","Short-form video content samples")]
+gal = [("influencers-portfolio.jpg","Creator network overview"),("results-analytics.jpg","Meta Ads analytics dashboard"),("results-growth.jpg","Instagram growth, 0 to 20K"),("client-sample-videos.jpg","Short-form video content samples")]
 results = head("Proof","Live work, real numbers.","Every figure comes from an active or recent engagement, or from our own brand.") + f'''
 <section class="section wrap" style="padding-top:20px">{statcards([(1.5,"M+",1,"Views across 4 flagship videos (Luvvette)"),(20,"K",0,"Instagram followers, zero to 20K in 2 months (Luvvette)"),(259,"",0,"Leads from 2 Meta campaigns (our own brand)"),(23.76,"%",2,"Peak lead conversion rate (our own brand)")])}
 <p class="note reveal">Average cost per lead &pound;2.89 to &pound;2.96 across 162K+ impressions, best ad set &pound;2.34.</p></section>
