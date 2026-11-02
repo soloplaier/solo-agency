@@ -35,8 +35,7 @@ ICONS = {
 def icon(name, cls="", gold=False):
     return f'<div class="icon{" gold" if gold else ""}"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONS[name]}</svg></div>'
 
-NAV = [("index.html","Home"),("models.html","Models"),("artists.html","Artists"),("brand-scaling.html","Brand Scaling"),
-       ("companies.html","Companies"),("work.html","Work"),("pricing.html","Pricing"),("join.html","Join the Network"),("contact.html","Contact")]
+NAV = [("services.html","Services"),("work.html","Work"),("pricing.html","Pricing")]
 
 def apply_url(t=None):
     return "apply.html" + ("?type=" + urllib.parse.quote(t) if t else "")
@@ -57,8 +56,8 @@ def footer():
   <div><img src="assets/img/solo-logo.png" alt="SOLO" width="110" height="34"><p class="note" style="max-width:340px;margin-top:0">Talent management and brand growth, under one roof. London, remote-friendly.</p>
   <p style="margin-top:14px"><a href="mailto:{EMAIL}" style="text-decoration:underline">{EMAIL}</a></p></div>
   <div><h4>Talent</h4><ul><li><a href="models.html">Models</a></li><li><a href="artists.html">Artists</a></li><li><a href="join.html">Join the Network</a></li></ul></div>
-  <div><h4>Business</h4><ul><li><a href="brand-scaling.html">Brand Scaling</a></li><li><a href="companies.html">Companies</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
-  <div><h4>Agency</h4><ul><li><a href="work.html">Work</a></li><li><a href="about.html">About</a></li><li><a href="apply.html">Apply</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+  <div><h4>Business</h4><ul><li><a href="ecommerce.html">E-commerce</a></li><li><a href="brand-scaling.html">Brand Scaling</a></li><li><a href="companies.html">Companies</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
+  <div><h4>Agency</h4><ul><li><a href="services.html">Services</a></li><li><a href="work.html">Work</a></li><li><a href="about.html">About</a></li><li><a href="apply.html">Apply</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
 </div><div class="foot-bottom"><div class="wrap">&copy; <span id="yr"></span> SOLO Agency. Talent management and brand growth, under one roof.</div></div></footer>
 <script>document.getElementById("yr").textContent=new Date().getFullYear();</script>'''
 
@@ -77,7 +76,7 @@ def page(fn, title, desc, body, cur=None, og=None):
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=4">
+<link rel="stylesheet" href="assets/style.css?v=5">
 </head>
 <body>
 {header(cur or fn)}
@@ -85,7 +84,7 @@ def page(fn, title, desc, body, cur=None, og=None):
 {body}
 </main>
 {footer()}
-<script src="assets/main.js?v=1" defer></script>
+<script src="assets/main.js?v=4" defer></script>
 </body>
 </html>
 '''
@@ -119,31 +118,46 @@ def statcards(items):
         out += f'<div class="card reveal"><div class="stat" data-count="{end}" data-suffix="{suf}" data-dec="{dec}">{end}{suf}</div><div class="stat-label">{label}</div></div>'
     return out + "</div>"
 
-CREATORS = [("@sturdythoughts","Uni and student life","31.6K","13M+"),("@danny_correia04","Art and entertainment","51.5K","2.6M+"),
-            ("@jnr.certi","Men's lifestyle","48.9K","2.9M+"),("@dxya_x1","Fashion and beauty","72.2K","1.9M+")]
-def creator_cards(n):
-    out = '<div class="grid g3">'
-    for h,niche,f,l in CREATORS[:n]:
-        out += f'<div class="card reveal"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">{h}</strong><div class="note" style="margin:0">{niche}</div></div></div><div class="mini"><div><small>Followers</small>{f}</div><div><small>Likes</small>{l}</div></div></div>'
+ROSTER = [
+ ("@sturdythoughts","Creator","Uni and student life","31.6K","13M+",None),
+ ("@danny_correia04","Creator","Art and entertainment","51.5K","2.6M+",None),
+ ("@soloplaier","Hybrid artist and content creator","Music and content","","","https://www.instagram.com/soloplaier/"),
+ ("thaticekidd","Artist","Rap and hip-hop","","","https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT"),
+]
+def creator_cards(n=4):
+    out = '<div class="grid g4">'
+    for h,role,niche,f,l,href in ROSTER[:n]:
+        inner = f'<div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">{h}</strong><div class="note" style="margin:0">{niche}</div></div></div>'
+        if f: inner += f'<div class="mini"><div><small>Followers</small>{f}</div><div><small>Likes</small>{l}</div></div>'
+        else: inner += f'<div class="role-tag">{role}</div>'
+        if href: out += f'<a class="card reveal" href="{href}" target="_blank" rel="noopener">{inner}</a>'
+        else: out += f'<div class="card reveal">{inner}</div>'
     return out + "</div>"
+
+# service divisions (home grid and services page)
+DIVS = [
+ ("ecommerce.html","building","E-commerce","Growth operating for online stores, and monetising communities."),
+ ("brand-scaling.html","trend","Brand Scaling","Paid ads and creative direction for clothing brands."),
+ ("companies.html","target","Companies","Content, paid ads, and HR automation."),
+ ("models.html","users","Models","Mother-agency representation, casting, and portfolio development."),
+ ("artists.html","music","Artists","Paid gigs, brand deals, and tour logistics."),
+ ("join.html","gift","Creator network","Paid campaigns, gifted product and referral perks for creators."),
+]
+def div_cards(items=DIVS):
+    return '<div class="grid g3">' + "".join(f'<a class="card reveal" href="{h}">{icon(i)}<h3>{t}</h3><p>{d}</p><span class="more">Learn more &rarr;</span></a>' for h,i,t,d in items) + '</div>'
 
 # ---------------- HOME ----------------
 home = f'''
 <section class="hero"><div class="wrap">
-  <div class="eyebrow reveal">Models &middot; Artists &middot; Brands &middot; Companies</div>
+  <div class="eyebrow reveal">Talent &middot; E-commerce &middot; Brands</div>
   <h1 class="reveal">Talent, brands, and the <span class="serif">campaigns</span> that connect them.</h1>
-  <p class="lead reveal">Representation for models and artists. Growth for brands and companies. <strong style="color:var(--ink);font-weight:600">Proof over pitch.</strong></p>
+  <p class="lead reveal">Representation for artists and models. Growth operating for stores, brands and communities. <strong style="color:var(--ink);font-weight:600">Proof over pitch.</strong></p>
   <div class="btn-row reveal"><a class="btn btn-gold" href="apply.html">Apply to work with us</a><a class="btn btn-ghost" href="#divisions">See what we do</a></div>
 </div></section>
 
 <section class="section wrap" id="divisions">
-  <div class="reveal" style="max-width:640px"><div class="eyebrow">Divisions</div><h2>Four divisions. One agency.</h2></div>
-  <div class="grid g4" style="margin-top:44px">
-    <a class="card reveal" href="models.html">{icon("users")}<h3>Models</h3><p>Mother-agency representation, casting, and portfolio development.</p><span class="more">Learn more &rarr;</span></a>
-    <a class="card reveal" href="artists.html">{icon("music")}<h3>Artists</h3><p>Paid gigs, brand deals, and tour logistics.</p><span class="more">Learn more &rarr;</span></a>
-    <a class="card reveal" href="brand-scaling.html">{icon("trend")}<h3>Brand Scaling</h3><p>Paid ads and creative direction for clothing brands.</p><span class="more">Learn more &rarr;</span></a>
-    <a class="card reveal" href="companies.html">{icon("building")}<h3>Companies</h3><p>Content, paid ads, and HR automation.</p><span class="more">Learn more &rarr;</span></a>
-  </div>
+  <div class="reveal" style="max-width:640px"><div class="eyebrow">What we do</div><h2>Six ways we grow you.</h2></div>
+  <div style="margin-top:44px">{div_cards()}</div>
 </section>
 
 <section class="section wrap" style="padding-block:40px 72px">
@@ -152,8 +166,8 @@ home = f'''
 </section>
 
 <section class="section wrap" style="padding-block:40px 72px">
-  <div class="head-row reveal"><div><div class="eyebrow">Creator network</div><h2>A live roster.</h2></div><a href="work.html">Meet the network &rarr;</a></div>
-  {creator_cards(2)}
+  <div class="head-row reveal"><div><div class="eyebrow">The roster</div><h2>Creators and artists we work with.</h2></div><a href="work.html">Meet the network &rarr;</a></div>
+  {creator_cards(4)}
 </section>
 <section class="section wrap" style="padding-block:20px 40px"><div class="band reveal" style="display:grid;gap:28px;align-items:center;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))"><div><div class="eyebrow">The founder</div><h2 style="font-size:1.9rem">You work with the person who runs your campaign.</h2><p class="lead" style="margin-top:12px;font-size:1rem">Tommaso Cristoni has grown accounts from zero, run lead-gen campaigns end to end, and sold out a retreat with Meta ads.</p><div class="btn-row"><a class="btn btn-ghost" href="about.html">About SOLO</a><a class="btn btn-ghost" href="work.html">See the work</a></div></div></div></section>
 {cta("Tell us where you are.","Every business is at a different stage. Apply and we will build a plan around yours.")}
@@ -186,7 +200,7 @@ artists = head("Artist Management","Less admin. More stages.","Booking and brand
  ("plane","Tour and travel logistics","Routing, travel, backline, per-diems, coordinated end to end.")])}</div></section>
 <section class="section wrap" style="padding-top:0"><h2 class="reveal">How it works</h2><div style="margin-top:40px">{steps([("Discovery","We listen to the music, review your live footage, and map audience and market."),("Booking pipeline setup","Rider, one-sheet, and outreach targets defined."),("Active bookings and deals","Ongoing gig and brand outreach with contract negotiation."),("Tour support","Full logistics coordination when a run of dates is on.")])}</div></section>
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Artists on the roster</div><h2>The artists we represent.</h2></div>
-<div class="grid g3" style="margin-top:36px"><a class="card reveal" href="https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">thaticekidd</strong><div class="note" style="margin:0">Rap and hip-hop</div></div></div><div class="mini"><div><small>Debut album</small>ICEMANN</div><div><small>Location</small>Birmingham, UK</div></div><span class="more">Listen on Spotify &rarr;</span></a></div></section>
+<div class="grid g3" style="margin-top:36px"><a class="card reveal" href="https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">thaticekidd</strong><div class="note" style="margin:0">Rap and hip-hop</div></div></div><div class="mini"><div><small>Debut album</small>ICEMANN</div><div><small>Location</small>Birmingham, UK</div></div><span class="more">Listen on Spotify &rarr;</span></a><a class="card reveal" href="https://www.instagram.com/soloplaier/" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">soloplaier</strong><div class="note" style="margin:0">Hybrid artist and content creator</div></div></div><div class="mini"><div><small>Focus</small>Music and content</div><div><small>Role</small>Artist and creator</div></div><span class="more">Follow on Instagram &rarr;</span></a></div></section>
 <section class="section wrap narrow" style="padding-top:0"><h2 class="reveal">Common questions</h2><div style="margin-top:24px">{faq([
  ("What genres and types of artists do you work with?","Genre-agnostic. We look for an active release cadence and a growing live audience."),
  ("Do you take a commission?","Yes. We take an agreed share of booked gigs and negotiated brand deals, set out clearly in your contract before you sign anything."),
@@ -291,7 +305,7 @@ work = head("Work","Live work, real numbers.","Case studies from client work and
 
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Clients</div><h2>Brands and businesses we have worked with.</h2></div>
 <div class="chips reveal" style="margin-top:26px"><span class="chip">Royal Mail</span><span class="chip">Luvvette</span><span class="chip">Purpose Path</span><span class="chip">POCUS Frimley</span></div></section>
-<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Creator network</div><h2>4 active creators, 204.2K+ combined followers, 20.4M+ combined likes.</h2></div><div style="margin-top:36px">{creator_cards(4)}</div></section>
+<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">The roster</div><h2>The creators and artists we work with.</h2></div><div style="margin-top:36px">{creator_cards(4)}</div></section>
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Portfolio</div><h2>Campaign and analytics gallery.</h2></div>
 <div class="grid g3 gallery" style="margin-top:36px">{"".join(f'<figure class="reveal"><img src="assets/img/{f}" alt="{c}" loading="lazy" width="800" height="600"><figcaption>{c}</figcaption></figure>' for f,c in gal)}</div></section>
 """ + cta("Want results like these?","Apply and tell us where you are today.")
@@ -319,6 +333,31 @@ about = head("About","Built by a founder who runs the campaigns.","SOLO is run b
 <div class="card reveal"><h3 style="font-size:1rem">Languages</h3><p>Italian (native), English (native), Spanish (professional).</p></div></div></section>
 """ + cta("Let's talk about your business.","Tell us where you are and we will tell you honestly if we can help.")
 page("about.html","About | Tommaso Cristoni, founder of SOLO Agency","Meet the founder of SOLO Agency: experience in social media management, Meta Ads, talent management and creative direction.", about)
+
+# ---------------- SERVICES ----------------
+services = head("Services","Everything under one roof.","Pick the part that fits where you are. Most clients start with one and grow into more.") + f"""
+<section class="section wrap" style="padding-top:20px">{div_cards()}</section>
+""" + cta("Not sure which fits?","Apply and we will point you to the right starting point.")
+page("services.html","Services | E-commerce, brands, companies, talent | SOLO Agency","E-commerce growth operating, paid ads for brands, content and HR automation for companies, plus model and artist management and a creator network.", services)
+
+# ---------------- E-COMMERCE ----------------
+ecom = head("E-commerce Specialist","We run your store's growth.","Growth operating for online stores, and for creators who want to monetise their community.") + f"""
+<section class="section wrap" style="padding-top:20px"><div class="reveal"><div class="eyebrow">Growth operating</div><h2>One partner for the whole store.</h2></div>
+<div style="margin-top:40px">{cards([
+ ("building","Store build and setup","Shopify build, product uploads with sizes and colours, collections, policies, and tracking, so the store is ready to sell."),
+ ("megaphone","Paid growth","Meta ads built around your catalogue: acquisition, retargeting and creative testing, with spend always paid to Meta in your own name."),
+ ("camera","Creator content","Short-form video and creator content directed and edited for ads and organic, so the store always has fresh creative."),
+ ("chart","Growth operating","Weekly work on offer, pricing, conversion and email. We look at the numbers with you and decide what to push next."),
+ ("bar","Honest reporting","Monthly reporting on orders, cost per order and revenue, so you always know what is working."),
+ ("users","Monetising communities","Turn an audience into income: digital products, memberships, paid communities, affiliate offers and brand deals.")], "g3", gold=False)}</div></section>
+
+<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">How it works</div><h2>From first call to growing store.</h2></div><div style="margin-top:40px">{steps([("Discovery","Where the store or community is today, what sells, and what you want next."),("Foundations","Store, tracking and offer set up properly before spending on ads."),("Launch","Creative and campaigns go live with a clear test plan."),("Operate and grow","Weekly optimisation, monthly reporting, and a plan to scale what works.")], True)}</div></section>
+
+<section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">Who this is for</div><h2 style="font-size:1.9rem">Stores and communities at any stage.</h2>
+<p class="lead" style="margin-top:14px">A new store that needs building and a first customer, an established shop that has stopped growing, or a creator with an engaged audience and nothing to sell yet. There is no price list: we agree terms around your stage, revenue and profit, so early-stage businesses are never priced out.</p>
+<div class="btn-row"><a class="btn btn-gold" href="apply.html?type=E-commerce%20store%20or%20community">Apply</a><a class="btn btn-ghost" href="pricing.html">How pricing works</a></div></div></section>
+"""
+page("ecommerce.html","E-commerce Specialist | Growth operating and monetising communities | SOLO","E-commerce growth operating: Shopify build, Meta ads, creator content, reporting, and monetising communities. Terms built around your stage and revenue.", ecom)
 
 # ---------------- PRICING ----------------
 pricing = f'''
@@ -394,7 +433,7 @@ apply = head("Apply","Tell us where you are.","Five short steps. We read every a
 <label class="field" for="a-biz">Business, brand or artist name<input id="a-biz" name="business" type="text" autocomplete="organization" required></label>
 <label class="field" for="a-links">Website or Instagram/TikTok handle<input id="a-links" name="links" type="text" placeholder="@yourbrand or yourwebsite.com" required></label></fieldset>
 
-<fieldset><legend>Which best describes you?</legend><p class="hint">Pick one.</p>{radios("type",["Clothing or product brand","Company or service business","Creator or influencer","Artist or musician","Model","Something else"])}</fieldset>
+<fieldset><legend>Which best describes you?</legend><p class="hint">Pick one.</p>{radios("type",["Clothing or product brand","E-commerce store or community","Company or service business","Creator or influencer","Artist or musician","Model","Something else"])}</fieldset>
 
 <fieldset><legend>Where are you right now?</legend><p class="hint">There is no wrong answer. Early stage is welcome, and rough ranges are fine.</p>
 <div class="sub-q">Stage</div>{radios("stage",["Just an idea","Pre-revenue","Early, first customers","Growing steadily","Scaling"])}
@@ -403,7 +442,7 @@ apply = head("Apply","Tell us where you are.","Five short steps. We read every a
 <div class="sub-q">Current monthly marketing spend</div>{radios("spend",["None","Under £250","£250 to £1k","£1k to £3k","£3k+"])}
 <div class="sub-q">What could you comfortably invest each month to grow?</div>{radios("invest",["Not sure yet, happy to start small","Under £250","£250 to £1k","£1k to £3k","£3k+"])}</fieldset>
 
-<fieldset><legend>What do you need?</legend><p class="hint">Pick as many as you like.</p>{checks("needs",["Meta ads","Content creation","Social media management","Website","Artist or talent management","Creator brand deals","Not sure, advise me"])}
+<fieldset><legend>What do you need?</legend><p class="hint">Pick as many as you like.</p>{checks("needs",["Meta ads","E-commerce growth","Monetising a community","Content creation","Social media management","Website","Artist or talent management","Creator brand deals","Not sure, advise me"])}
 <label class="field" for="a-block">What is the biggest thing holding you back right now?<textarea id="a-block" name="blocker" required></textarea></label>
 <label class="field" for="a-goal">What would a great next 12 months look like?<textarea id="a-goal" name="goal" required></textarea></label></fieldset>
 
@@ -437,7 +476,7 @@ page("404.html","Page not found | SOLO Agency","Page not found.", nf)
 
 # sitemap + robots
 base = "https://soloplaier.github.io/solo-agency/"
-pages = ["index","models","artists","brand-scaling","companies","work","about","pricing","join","contact","apply","privacy"]
+pages = ["index","services","ecommerce","models","artists","brand-scaling","companies","work","about","pricing","join","contact","apply","privacy"]
 open(os.path.join(ROOT,"sitemap.xml"),"w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{base}{p}.html</loc></url>\n" for p in pages) + "</urlset>\n")
 open(os.path.join(ROOT,"robots.txt"),"w").write(f"User-agent: *\nAllow: /\nSitemap: {base}sitemap.xml\n")
 print("built", len(pages)+1, "pages")

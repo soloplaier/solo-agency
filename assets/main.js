@@ -12,15 +12,63 @@
     btn.setAttribute("aria-expanded", open ? "true" : "false");
   });
 
-  // reveal on scroll, with a fallback so nothing can stay hidden
-  var targets = [].slice.call(document.querySelectorAll(".reveal"));
-  if ("IntersectionObserver" in window) {
+  // scroll animations: reveal with stagger, parallax orbs, progress bar, hero words, timeline
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var root = document.documentElement;
+  // stagger children inside grids
+  [].slice.call(document.querySelectorAll(".grid")).forEach(function (g) {
+    [].slice.call(g.children).forEach(function (c, i) { if (c.classList.contains("reveal")) c.style.transitionDelay = Math.min(i * 90, 540) + "ms"; });
+  });
+  // hero headline words
+  var h1 = document.querySelector(".hero h1");
+  if (h1 && !reduce) {
+    (function split(node) {
+      [].slice.call(node.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach(function (t) {
+            if (!t) return;
+            if (/^\s+$/.test(t)) { frag.appendChild(document.createTextNode(" ")); return; }
+            var w = document.createElement("span"); w.className = "w"; var i = document.createElement("span"); i.textContent = t; w.appendChild(i); frag.appendChild(w);
+          });
+          node.replaceChild(frag, n);
+        } else if (n.nodeType === 1) split(n);
+      });
+    })(h1);
+    [].slice.call(h1.querySelectorAll(".w>span")).forEach(function (sp, i) { sp.style.transitionDelay = (0.15 + i * 0.07) + "s"; });
+    h1.classList.remove("reveal"); h1.style.opacity = 1; h1.style.transform = "none";
+    setTimeout(function () { h1.classList.add("words-in"); }, 60);
+  }
+  // orbs in hero
+  var hero = document.querySelector(".hero");
+  if (hero && !reduce) { ["sky", "gold"].forEach(function (c) { var o = document.createElement("div"); o.className = "orb " + c; hero.appendChild(o); }); }
+  // progress bar
+  var bar = document.createElement("div"); bar.className = "scroll-progress"; document.body.appendChild(bar);
+  var tl = document.querySelector(".timeline");
+  var ticking = false;
+  function frame() {
+    ticking = false;
+    var y = window.scrollY, max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    bar.style.transform = "scaleX(" + Math.min(1, y / max) + ")";
+    if (!reduce) root.style.setProperty("--sy", y);
+    if (tl) { var r = tl.getBoundingClientRect(); root.style.setProperty("--tl", Math.max(0, Math.min(1, (window.innerHeight * 0.7 - r.top) / r.height))); }
+    revealCheck();
+  }
+  function onS() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener("scroll", onS, { passive: true }); window.addEventListener("resize", onS);
+
+  var targets = [].slice.call(document.querySelectorAll(".reveal, .pp-gallery"));
+  function revealCheck() {
+    // fallback in case an observer entry is missed: reveal anything already above the fold line
+    targets.forEach(function (t) { if (!t.classList.contains("in") && t.getBoundingClientRect().top < window.innerHeight * 0.92) t.classList.add("in"); });
+  }
+  if ("IntersectionObserver" in window && !reduce) {
     var io = new IntersectionObserver(function (es) {
       es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-    }, { threshold: 0, rootMargin: "0px 0px -6% 0px" });
+    }, { threshold: 0, rootMargin: "0px 0px -8% 0px" });
     targets.forEach(function (t) { io.observe(t); });
-    setTimeout(function () { targets.forEach(function (t) { t.classList.add("in"); }); }, 4000);
   } else { targets.forEach(function (t) { t.classList.add("in"); }); }
+  frame(); setTimeout(frame, 120);
 
   // count-up numbers
   [].slice.call(document.querySelectorAll("[data-count]")).forEach(function (el) {
