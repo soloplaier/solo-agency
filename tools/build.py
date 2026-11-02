@@ -76,7 +76,7 @@ def page(fn, title, desc, body, cur=None, og=None):
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=5">
+<link rel="stylesheet" href="assets/style.css?v=6">
 </head>
 <body>
 {header(cur or fn)}
@@ -119,17 +119,18 @@ def statcards(items):
     return out + "</div>"
 
 ROSTER = [
- ("@sturdythoughts","Creator","Uni and student life","31.6K","13M+",None),
- ("@danny_correia04","Creator","Art and entertainment","51.5K","2.6M+",None),
- ("@soloplaier","Hybrid artist and content creator","Music and content","","","https://www.instagram.com/soloplaier/"),
- ("thaticekidd","Artist","Rap and hip-hop","","","https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT"),
+ ("@sturdythoughts","Creator","Uni and student life",[("Followers","31.6K"),("Likes","13M+")],None,""),
+ ("@danny_correia04","Creator","Art and entertainment",[("Followers","51.5K"),("Likes","2.6M+")],None,""),
+ ("@soloplaier","Hybrid artist and content creator","Music and content",[],"https://www.instagram.com/soloplaier/",""),
+ ("thaticekidd","Artist","Rap and hip-hop",[("Followers","3.3K"),("Paid shows","Last 3")],"https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT","Booked and paid for his last 3 shows. We are building his creative strategy."),
 ]
 def creator_cards(n=4):
     out = '<div class="grid g4">'
-    for h,role,niche,f,l,href in ROSTER[:n]:
+    for h,role,niche,stats,href,extra in ROSTER[:n]:
         inner = f'<div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">{h}</strong><div class="note" style="margin:0">{niche}</div></div></div>'
-        if f: inner += f'<div class="mini"><div><small>Followers</small>{f}</div><div><small>Likes</small>{l}</div></div>'
+        if stats: inner += '<div class="mini">' + "".join(f'<div><small>{l}</small>{v}</div>' for l,v in stats) + '</div>'
         else: inner += f'<div class="role-tag">{role}</div>'
+        if extra: inner += f'<p class="note" style="margin-top:14px">{extra}</p>'
         if href: out += f'<a class="card reveal" href="{href}" target="_blank" rel="noopener">{inner}</a>'
         else: out += f'<div class="card reveal">{inner}</div>'
     return out + "</div>"
@@ -162,7 +163,7 @@ home = f'''
 
 <section class="section wrap" style="padding-block:40px 72px">
   <div class="head-row reveal"><div><div class="eyebrow">Proof</div><h2>The numbers.</h2></div><a href="work.html">See full results &rarr;</a></div>
-  {statcards([(1.5,"M+",1,"Views across 4 flagship videos for one client"),(20,"K",0,"Instagram followers, zero to 20K in 2 months"),(259,"",0,"Leads from 2 lead-gen campaigns we ran for our own brand"),(23.76,"%",2,"Peak lead conversion rate")])}
+  {statcards([(1.5,"M+",1,"Views across 4 flagship videos for one client"),(20,"K",0,"Instagram followers, zero to 20K in 2 months"),(31.6,"K",1,"Followers for a creator we manage, up from 3.2K"),(13,"M+",0,"Total likes for that creator")])}
 </section>
 
 <section class="section wrap" style="padding-block:40px 72px">
@@ -200,7 +201,7 @@ artists = head("Artist Management","Less admin. More stages.","Booking and brand
  ("plane","Tour and travel logistics","Routing, travel, backline, per-diems, coordinated end to end.")])}</div></section>
 <section class="section wrap" style="padding-top:0"><h2 class="reveal">How it works</h2><div style="margin-top:40px">{steps([("Discovery","We listen to the music, review your live footage, and map audience and market."),("Booking pipeline setup","Rider, one-sheet, and outreach targets defined."),("Active bookings and deals","Ongoing gig and brand outreach with contract negotiation."),("Tour support","Full logistics coordination when a run of dates is on.")])}</div></section>
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Artists on the roster</div><h2>The artists we represent.</h2></div>
-<div class="grid g3" style="margin-top:36px"><a class="card reveal" href="https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">thaticekidd</strong><div class="note" style="margin:0">Rap and hip-hop</div></div></div><div class="mini"><div><small>Debut album</small>ICEMANN</div><div><small>Location</small>Birmingham, UK</div></div><span class="more">Listen on Spotify &rarr;</span></a><a class="card reveal" href="https://www.instagram.com/soloplaier/" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">soloplaier</strong><div class="note" style="margin:0">Hybrid artist and content creator</div></div></div><div class="mini"><div><small>Focus</small>Music and content</div><div><small>Role</small>Artist and creator</div></div><span class="more">Follow on Instagram &rarr;</span></a></div></section>
+<div class="grid g3" style="margin-top:36px"><a class="card reveal" href="https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">thaticekidd</strong><div class="note" style="margin:0">Rap and hip-hop</div></div></div><div class="mini"><div><small>Debut album</small>ICEMANN</div><div><small>Followers</small>3.3K</div></div><p class="note" style="margin-top:14px">Birmingham, UK. Booked and paid for his last 3 shows. We are building his creative strategy.</p><span class="more">Listen on Spotify &rarr;</span></a><a class="card reveal" href="https://www.instagram.com/soloplaier/" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">soloplaier</strong><div class="note" style="margin:0">Hybrid artist and content creator</div></div></div><div class="mini"><div><small>Focus</small>Music and content</div><div><small>Role</small>Artist and creator</div></div><span class="more">Follow on Instagram &rarr;</span></a></div></section>
 <section class="section wrap narrow" style="padding-top:0"><h2 class="reveal">Common questions</h2><div style="margin-top:24px">{faq([
  ("What genres and types of artists do you work with?","Genre-agnostic. We look for an active release cadence and a growing live audience."),
  ("Do you take a commission?","Yes. We take an agreed share of booked gigs and negotiated brand deals, set out clearly in your contract before you sign anything."),
@@ -215,10 +216,9 @@ brand = head("Brand Scaling","Paid ads for clothing brands.","Ads, creative, and
  ("palette","Creative direction","Ad concepts, hooks, and scripts built for the feed. You film simple clips on your phone, we direct, edit and launch them."),
  ("chart","Campaign optimisation","Weekly cycles: cut underperformers, scale winners."),
  ("users","Audience segmentation and testing","Structured A/B tests across audiences, hooks, and placements.")], gold=False)}</div></section>
-<section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">Meta Ads results from our own lead-gen campaigns</div>
-<h2>259 leads. 23.76% peak conversion. Best cost per lead of &pound;2.34.</h2>
-<div class="grid g3" style="margin-top:34px"><div><div class="stat" data-count="259" data-dec="0">259</div><div class="stat-label">Leads across 2 Meta campaigns</div></div><div><div class="stat" data-count="23.76" data-suffix="%" data-dec="2">23.76%</div><div class="stat-label">Peak lead conversion rate</div></div><div><div class="stat">&pound;2.89 to &pound;2.96</div><div class="stat-label">Blended cost per lead, 162K+ impressions</div></div></div>
-<p class="note">These campaigns were run for our own brand, Final Judgment. Every client is different, so we never promise the same numbers.</p></div></section>
+<section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">How we measure</div>
+<h2>Cost per lead and return on ad spend. Not impressions.</h2>
+<p class="lead" style="margin-top:14px">Every campaign has a clear target agreed up front, a weekly look at what is working, and monthly reporting you can read in two minutes. See real campaigns in our <a href="work.html" style="text-decoration:underline">case studies</a>.</p></div></section>
 <section class="section wrap" style="padding-top:0"><h2 class="reveal">Our process</h2><div style="margin-top:40px">{steps([("Discovery call","Goals, margins, offer, and current channel mix."),("Strategy and audience research","Persona work, competitor teardown, hook and offer angles."),("Campaign launch","Account build, pixel and conversion tracking, creative, structured launch."),("Ongoing optimisation","Weekly reporting, creative refresh, and a scale plan.")], True)}</div></section>
 ''' + cta("Ready to scale?","Tell us where your brand is today and we will tell you honestly if we can help.", "Apply", apply_url("Clothing or product brand"), ("See how pricing works","pricing.html"))
 page("brand-scaling.html","Brand Scaling | Paid Meta ads for clothing brands | SOLO Agency","Paid Meta ads and creative direction for clothing brands ready to scale.", brand)
@@ -237,6 +237,10 @@ companies = head("For Companies","Full digital presence for businesses.","Social
 ''' + cta("Find out what a partnership looks like for you.","There is no price list. We build the plan around your business.", "Apply", apply_url("Company or service business"), ("How pricing works","pricing.html"))
 page("companies.html","Companies | Full digital presence and HR chatbot | SOLO Agency","Campaign management, content production, paid ads, reporting, and HR chatbot automation for businesses.", companies)
 
+
+def brand_head(logo, alt, links):
+    return f'<div class="brand-head reveal"><img class="brand-logo" src="assets/img/brands/{logo}" alt="{alt}" loading="lazy"><div class="brand-links">' + "".join(f'<a href="{h}" target="_blank" rel="noopener">{t}</a>' for t,h in links) + '</div></div>'
+
 # ---------------- WORK (case studies) ----------------
 gal = [("influencers-portfolio.jpg","Creator network overview"),("results-analytics.jpg","Meta Ads analytics dashboard"),("results-growth.jpg","Instagram growth, 0 to 20K"),("client-sample-videos.jpg","Short-form video content samples")]
 tt = [("7458033527137832224","652K","tt-1"),("7457654119650692385","401K","tt-2"),("7460706638161349920","329K","tt-3"),("7458677421143870753","116K","tt-4")]
@@ -245,7 +249,7 @@ pp_imgs = [("group.jpg","Purpose Path retreat group on a guided walk"),("venue.j
 pp_gal = "".join(f'<figure class="{"g-main" if i==0 else ""}"><img src="assets/img/purpose-path/{f}" alt="{c}" loading="lazy"></figure>' for i,(f,c) in enumerate(pp_imgs))
 vids = "".join(f'<div class="vid reveal"><video controls playsinline preload="metadata"><source src="assets/video/final-judgment-0{i}.mp4" type="video/mp4"></video></div>' for i in (1,2,3))
 work = head("Work","Live work, real numbers.","Case studies from client work and from our own brand. Every figure comes from an active or recent engagement.") + f"""
-<section class="section wrap" style="padding-top:20px">{statcards([(1.5,"M+",1,"Views across 4 flagship videos (Luvvette)"),(20,"K",0,"Instagram followers, zero to 20K in 2 months (Luvvette)"),(44,"",0,"Leads from two retreat lead-gen campaigns (Purpose Path)"),(259,"",0,"Leads from 2 Meta campaigns (our own brand)")])}
+<section class="section wrap" style="padding-top:20px">{statcards([(1.5,"M+",1,"Views across 4 flagship videos (Luvvette)"),(20,"K",0,"Instagram followers, zero to 20K in 2 months (Luvvette)"),(44,"",0,"Leads from two retreat lead-gen campaigns (Purpose Path)"),(13,"M+",0,"Likes for a creator we manage (Keiran McRae)")])}
 <div class="chips reveal" style="margin-top:26px"><a class="chip" href="#purpose-path">Purpose Path</a><a class="chip" href="#luvvette">Luvvette</a><a class="chip" href="#keiran">Keiran McRae</a><a class="chip" href="#pocus-frimley">Pocus Frimley</a><a class="chip" href="#final-judgment">Final Judgment</a></div></section>
 
 <section class="section wrap" id="purpose-path" style="padding-top:0"><div class="reveal"><div class="eyebrow">Case study 01</div><h2>Purpose Path</h2><p class="lead" style="margin-top:10px">Coaching and walking retreat &middot; M&aacute;laga, Spain &middot; Sep 2026 onwards</p></div>
@@ -277,6 +281,7 @@ work = head("Work","Live work, real numbers.","Case studies from client work and
 <figure class="card pp-quote" hidden><blockquote>&ldquo;Testimonial two goes here.&rdquo;</blockquote><figcaption><strong>Name</strong><br><span class="note">Role, Purpose Path</span></figcaption></figure></div></div></section>
 
 <section class="section wrap" id="luvvette" style="padding-top:0"><div class="reveal"><div class="eyebrow">Case study 02</div><h2>Luvvette</h2><p class="lead" style="margin-top:10px">Social media management across TikTok and Instagram. Content planning, production and distribution for a fashion brand.</p></div>
+{brand_head("luvvette-dark.png","Luvvette logo",[("Website: luvvette.com","https://luvvette.com"),("Instagram: @luvvetteofficial","https://www.instagram.com/luvvetteofficial/"),("TikTok: @luvvettefashion","https://www.tiktok.com/@luvvettefashion")])}
 <div class="grid g4" style="margin-top:34px"><div class="card reveal"><div class="stat" data-count="1.5" data-suffix="M+" data-dec="1">1.5M+</div><div class="stat-label">Combined views across 4 flagship TikToks</div></div><div class="card reveal"><div class="stat" data-count="20" data-suffix="K" data-dec="0">20K</div><div class="stat-label">Instagram followers, grown from 0 in 2 months</div></div><div class="card reveal"><div class="stat" data-count="24.6" data-suffix="K" data-dec="1">24.6K</div><div class="stat-label">Total TikTok likes across 52 videos</div></div><div class="card reveal"><div class="stat">4</div><div class="stat-label">Viral videos, each 100K+ views</div></div></div>
 <div class="grid g4 tt-grid" style="margin-top:30px">{tt_html}</div>
 <div class="grid g2" style="margin-top:30px">
@@ -307,28 +312,18 @@ work = head("Work","Live work, real numbers.","Case studies from client work and
 <!-- POCUS RESULTS: add the real numbers (leads, cost per lead, students enrolled) from Ads Manager or the CRM, then add a result block here. -->
 </section>
 
-<section class="section wrap" id="final-judgment" style="padding-top:0"><div class="reveal"><div class="eyebrow">Our own brand</div><h2>Final Judgment</h2><p class="lead" style="margin-top:10px">A streetwear label founded and creative-directed end to end: a dark, gothic-script apocalyptic brand world built into hoodies, shot as street-style content, and turned into a paid lead-gen engine.</p></div>
+<section class="section wrap" id="final-judgment" style="padding-top:0"><div class="reveal"><div class="eyebrow">Our own brand</div><h2>Final Judgment</h2><p class="lead" style="margin-top:10px">A streetwear label founded and creative-directed end to end: a dark, gothic-script apocalyptic brand world built into hoodies, shot as street-style content.</p></div>
+{brand_head("fj-dark.png","Final Judgment logo",[("Website: finaljudgment.store","https://finaljudgment.store"),("Instagram: @finaljudgementt","https://www.instagram.com/finaljudgementt/")])}
 <div class="grid g3 fj-grid" style="margin-top:34px">{vids}</div>
 <p class="note reveal">Street-style lookbook content shot on location: the Final Judgement wordmark and leopard-print trim on black hoodies, cut against moody macro inserts and scripture-style overlays.</p>
-<div class="reveal" style="margin-top:44px"><div class="eyebrow">Paid social</div><h3 style="font-size:1.6rem">Meta Ads performance</h3><p class="lead" style="margin-top:8px">Lead-generation campaigns built, tested and optimised end to end in Meta Ads Manager: audience segmentation, creative testing and budget allocation across ad sets.</p></div>
-<div class="grid g4" style="margin-top:26px"><div class="card reveal"><div class="stat" data-count="259" data-dec="0">259</div><div class="stat-label">Leads across two lead-gen campaigns</div></div><div class="card reveal"><div class="stat" data-count="2.92" data-dec="2">2.92</div><div class="stat-label">Blended cost per lead in &pound;, best ad set &pound;2.34</div></div><div class="card reveal"><div class="stat" data-count="22" data-suffix="%+" data-dec="0">22%+</div><div class="stat-label">Average lead conversion rate</div></div><div class="card reveal"><div class="stat" data-count="162" data-suffix="K+" data-dec="0">162K+</div><div class="stat-label">Impressions delivered</div></div></div>
-<div class="ads-table-wrap reveal"><p class="note" style="margin:26px 0 10px;text-transform:uppercase;letter-spacing:.08em">Ad set breakdown, live export from Meta Ads Manager</p><div class="tbl-scroll"><table class="tbl"><thead><tr><th>Amount spent</th><th>Results</th><th>Cost / result</th><th>Conv. rate (leads)</th><th>Impressions</th><th>Reach</th></tr></thead><tbody>
-<tr><td>&pound;11.19</td><td>4</td><td>&pound;2.80</td><td>20.00%</td><td>2,383</td><td>1,527</td></tr>
-<tr><td>&pound;84.19</td><td>29</td><td>&pound;2.90</td><td>25.22%</td><td>18,831</td><td>7,416</td></tr>
-<tr><td>&pound;87.08</td><td>26</td><td>&pound;3.35</td><td>21.85%</td><td>19,868</td><td>7,979</td></tr>
-<tr><td>&pound;51.18</td><td>15</td><td>&pound;3.41</td><td>18.29%</td><td>12,145</td><td>5,557</td></tr>
-<tr><td>&pound;68.90</td><td>22</td><td>&pound;3.13</td><td>17.89%</td><td>15,145</td><td>6,963</td></tr>
-<tr><td>&pound;112.20</td><td>48</td><td>&pound;2.34</td><td>22.64%</td><td>24,899</td><td>9,384</td></tr>
-<tr class="total"><td>&pound;416.74</td><td>144</td><td>&pound;2.89</td><td>21.46%</td><td>93,533</td><td>15,895</td></tr></tbody></table></div>
-<p class="note">Second campaign (not shown row by row): 115 leads &middot; &pound;2.96 cost per lead &middot; 23.76% conversion &middot; 69,048 impressions &middot; 20,186 reach. These campaigns were run for our own brand, so we never promise the same numbers for a client.</p></div></section>
+</section>
 
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Clients</div><h2>Brands and businesses we have worked with.</h2></div>
 <div class="chips reveal" style="margin-top:26px"><span class="chip">Royal Mail</span><span class="chip">Luvvette</span><span class="chip">Purpose Path</span><span class="chip">Pocus Frimley</span></div></section>
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">The roster</div><h2>The creators and artists we work with.</h2></div><div style="margin-top:36px">{creator_cards(4)}</div></section>
-<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Portfolio</div><h2>Campaign and analytics gallery.</h2></div>
-<div class="grid g3 gallery" style="margin-top:36px">{"".join(f'<figure class="reveal"><img src="assets/img/{f}" alt="{c}" loading="lazy" width="800" height="600"><figcaption>{c}</figcaption></figure>' for f,c in gal)}</div></section>
+
 """ + cta("Want results like these?","Apply and tell us where you are today.")
-page("work.html","Work | Case studies, results and creators | SOLO Agency","Case studies and real numbers: Purpose Path retreat lead-gen, Luvvette 1.5M+ views and 20K followers, Keiran McRae 13M+ likes, and Final Judgment Meta Ads results.", work)
+page("work.html","Work | Case studies, results and creators | SOLO Agency","Case studies and real numbers: Purpose Path retreat lead-gen, Luvvette 1.5M+ views and 20K followers, Keiran McRae 13M+ likes, Pocus Frimley and Final Judgment.", work)
 # old results.html now redirects
 open(os.path.join(ROOT,"results.html"),"w").write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=work.html"><link rel="canonical" href="work.html"><title>Work | SOLO Agency</title></head><body><a href="work.html">Continue to our work</a></body></html>')
 
