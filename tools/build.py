@@ -76,7 +76,7 @@ def page(fn, title, desc, body, cur=None, og=None):
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=6">
+<link rel="stylesheet" href="assets/style.css?v=7">
 </head>
 <body>
 {header(cur or fn)}
@@ -119,15 +119,16 @@ def statcards(items):
     return out + "</div>"
 
 ROSTER = [
- ("@sturdythoughts","Creator","Uni and student life",[("Followers","31.6K"),("Likes","13M+")],None,""),
- ("@danny_correia04","Creator","Art and entertainment",[("Followers","51.5K"),("Likes","2.6M+")],None,""),
- ("@soloplaier","Hybrid artist and content creator","Music and content",[],"https://www.instagram.com/soloplaier/",""),
- ("thaticekidd","Artist","Rap and hip-hop",[("Followers","3.3K"),("Paid shows","Last 3")],"https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT","Booked and paid for his last 3 shows. We are building his creative strategy."),
+ ("@sturdythoughts","Creator","Uni and student life",[("Followers","31.6K"),("Likes","13M+")],None,"",None),
+ ("@danny_correia04","Creator","Art and entertainment",[("Followers","51.5K"),("Likes","2.6M+")],None,"",None),
+ ("@soloplaier","Hybrid artist and content creator","Music and content",[],"https://www.instagram.com/soloplaier/","",None),
+ ("thaticekidd","Artist","Rap and hip-hop",[("Followers","3.3K"),("Paid shows","Last 3")],"https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT","Booked and paid for his last 3 shows. We are building his creative strategy.","thaticekidd-portrait.jpg"),
 ]
 def creator_cards(n=4):
     out = '<div class="grid g4">'
-    for h,role,niche,stats,href,extra in ROSTER[:n]:
-        inner = f'<div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">{h}</strong><div class="note" style="margin:0">{niche}</div></div></div>'
+    for h,role,niche,stats,href,extra,photo in ROSTER[:n]:
+        av = f'<img class="avatar-img" src="assets/img/work/{photo}" alt="{h}" width="44" height="44" loading="lazy">' if photo else '<div class="avatar"></div>'
+        inner = f'<div class="creator">{av}<div><strong style="font-family:var(--display)">{h}</strong><div class="note" style="margin:0">{niche}</div></div></div>'
         if stats: inner += '<div class="mini">' + "".join(f'<div><small>{l}</small>{v}</div>' for l,v in stats) + '</div>'
         else: inner += f'<div class="role-tag">{role}</div>'
         if extra: inner += f'<p class="note" style="margin-top:14px">{extra}</p>'
@@ -201,7 +202,18 @@ artists = head("Artist Management","Less admin. More stages.","Booking and brand
  ("plane","Tour and travel logistics","Routing, travel, backline, per-diems, coordinated end to end.")])}</div></section>
 <section class="section wrap" style="padding-top:0"><h2 class="reveal">How it works</h2><div style="margin-top:40px">{steps([("Discovery","We listen to the music, review your live footage, and map audience and market."),("Booking pipeline setup","Rider, one-sheet, and outreach targets defined."),("Active bookings and deals","Ongoing gig and brand outreach with contract negotiation."),("Tour support","Full logistics coordination when a run of dates is on.")])}</div></section>
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Artists on the roster</div><h2>The artists we represent.</h2></div>
-<div class="grid g3" style="margin-top:36px"><a class="card reveal" href="https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">thaticekidd</strong><div class="note" style="margin:0">Rap and hip-hop</div></div></div><div class="mini"><div><small>Debut album</small>ICEMANN</div><div><small>Followers</small>3.3K</div></div><p class="note" style="margin-top:14px">Birmingham, UK. Booked and paid for his last 3 shows. We are building his creative strategy.</p><span class="more">Listen on Spotify &rarr;</span></a><a class="card reveal" href="https://www.instagram.com/soloplaier/" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">soloplaier</strong><div class="note" style="margin:0">Hybrid artist and content creator</div></div></div><div class="mini"><div><small>Focus</small>Music and content</div><div><small>Role</small>Artist and creator</div></div><span class="more">Follow on Instagram &rarr;</span></a></div></section>
+<div class="grid g3" style="margin-top:36px"><a class="card reveal" href="https://open.spotify.com/track/3gPPdMcV8HIvZsWk2pVEbT" target="_blank" rel="noopener"><img class="artist-photo" src="assets/img/work/thaticekidd-portrait.jpg" alt="thaticekidd" width="340" height="467" loading="lazy"><div class="creator" style="margin-top:18px"><div class="avatar" style="display:none"></div><div><strong style="font-family:var(--display)">thaticekidd</strong><div class="note" style="margin:0">Rap and hip-hop</div></div></div><div class="mini"><div><small>Debut album</small>ICEMANN</div><div><small>Followers</small>3.3K</div></div><p class="note" style="margin-top:14px">Birmingham, UK. Booked and paid for his last 3 shows. We are building his creative strategy.</p><span class="more">Listen on Spotify &rarr;</span></a><a class="card reveal" href="https://www.instagram.com/soloplaier/" target="_blank" rel="noopener"><div class="creator"><div class="avatar"></div><div><strong style="font-family:var(--display)">soloplaier</strong><div class="note" style="margin:0">Hybrid artist and content creator</div></div></div><div class="mini"><div><small>Focus</small>Music and content</div><div><small>Role</small>Artist and creator</div></div><span class="more">Follow on Instagram &rarr;</span></a></div></section>
+<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">thaticekidd</div><h2>Live performance history.</h2><p class="lead" style="margin-top:10px">Eight-plus shows across Birmingham, London and Manchester since 2023, from first lineup to hometown headliner.</p></div>
+<div class="tbl-scroll reveal" style="margin-top:30px"><table class="tbl tbl-left"><thead><tr><th>Date</th><th>Event</th><th>Venue / city</th><th>Notes</th></tr></thead><tbody>
+<tr><td>Feb 2026</td><td>Trifecta Birmingham</td><td>Birmingham</td><td>Locced In x 13 Promotions UK x lly2k Events</td></tr>
+<tr><td>Feb 2026</td><td>Trifecta Manchester</td><td>Manchester</td><td>13 Promotions UK, multi-city run in the same month</td></tr>
+<tr><td>19 Nov 2025</td><td>Locced In Surprise Party</td><td>Suki10c, Birmingham</td><td>Invite-only underground lineup</td></tr>
+<tr class="total"><td>26 Jul 2025</td><td>Revive Tha Rage Vol. 6 (headline)</td><td>Dead Wax, Digbeth, Birmingham</td><td>Hometown headline debut, biggest Revive Tha Rage lineup to date</td></tr>
+<tr><td>Summer 2025</td><td>Sighted Summer Party Vol. 1</td><td>Egg London, London</td><td>Performed as part of the Pseudo collective</td></tr>
+<tr><td>20 Jun 2025</td><td>Revive Tha Rage Vol. V</td><td>Dead Wax, Digbeth, Birmingham</td><td>On the bill with grime legend Sox, 20+ acts</td></tr>
+<tr><td>2025</td><td>Teebo FG Headline Show</td><td>Birmingham</td><td>Morpheus Events</td></tr>
+<tr><td>22 Oct 2023</td><td>Locced In</td><td>Birmingham</td><td>First live show</td></tr></tbody></table></div>
+<div class="grid g3" style="margin-top:26px"><div class="card reveal"><h3 style="font-size:1rem">Rebooked by promoters</h3><p>Repeat booked by the same promoters, including Revive Tha Rage and Locced In.</p></div><div class="card reveal"><h3 style="font-size:1rem">Proven in three cities</h3><p>Birmingham, London and Manchester, with the ability to travel anywhere in the UK with notice.</p></div><div class="card reveal"><h3 style="font-size:1rem">Easy to book</h3><p>Flexible 10 to 30 minute sets as opener, support or headline. Reliable on the night.</p></div></div></section>
 <section class="section wrap narrow" style="padding-top:0"><h2 class="reveal">Common questions</h2><div style="margin-top:24px">{faq([
  ("What genres and types of artists do you work with?","Genre-agnostic. We look for an active release cadence and a growing live audience."),
  ("Do you take a commission?","Yes. We take an agreed share of booked gigs and negotiated brand deals, set out clearly in your contract before you sign anything."),
@@ -289,6 +301,8 @@ work = head("Work","Live work, real numbers.","Case studies from client work and
 <div class="card reveal"><div class="eyebrow">Content production</div><p>A full pipeline behind every video: location scouting, model casting and communications, call sheets, on-set direction and styling, run inside tight shooting windows so one day produced a batch of content. That repeatable process kept a 52-video posting rhythm going without quality dropping.</p></div>
 <div class="card reveal"><div class="eyebrow">Distribution</div><p>TikTok and Instagram were treated as two different jobs. TikTok carried discovery, with trend- and sound-driven short form built to travel beyond the existing following. Instagram carried retention, with Reels and grid content that converted that discovery into a following.</p></div>
 <div class="card reveal"><div class="eyebrow">The result</div><p>Four flagship TikToks totalling 1.5M+ views (652K, 401K, 329K and 116K), and an Instagram grown from zero to 20K+ followers in two months.</p></div></div>
+<div class="reveal" style="margin-top:44px"><div class="eyebrow">Pre-production</div><h3 style="font-size:1.5rem">The videographer pack for the 14 December 2024 shoot.</h3><p class="note" style="margin-top:8px">Every shoot ran from a written pack: run of day, content boards, a behind-the-scenes brief, and locations at Somerset House and a London studio.</p></div>
+<div class="asset-grid asset-grid-tall" style="margin-top:22px">{"".join(f'<figure class="reveal"><img src="assets/img/work/luvvette-prod-{n}.jpg" alt="Luvvette shoot pack: {c}" width="640" height="959" loading="lazy"><figcaption>{c}</figcaption></figure>' for n,c in [("cover","Pack cover"),("schedule","Run of day"),("content-board-1","Content board"),("content-board-2","Content board"),("bts-brief","Behind-the-scenes brief"),("studio","Studio location")])}</div>
 <div class="btn-row"><a class="btn btn-ghost" href="https://www.tiktok.com/@luvvettefashion" target="_blank" rel="noopener">Luvvette on TikTok</a><a class="btn btn-ghost" href="https://www.instagram.com/luvvetteofficial/" target="_blank" rel="noopener">Luvvette on Instagram</a></div></section>
 
 <section class="section wrap" id="keiran" style="padding-top:0"><div class="reveal"><div class="eyebrow">Case study 03</div><h2>Keiran McRae</h2><p class="lead" style="margin-top:10px">@sturdythoughts &middot; from 3,247 to 31.6K followers and 13M+ likes, with real brand partnerships including StockX and McDonald&rsquo;s secured through the account.</p></div>
@@ -301,7 +315,7 @@ work = head("Work","Live work, real numbers.","Case studies from client work and
 <section class="section wrap" id="pocus-frimley" style="padding-top:0"><div class="reveal"><div class="eyebrow">Case study 04</div><h2>Pocus Frimley</h2><p class="lead" style="margin-top:10px">Healthcare education &middot; paid lead generation and market expansion into the Republic of Ireland.</p></div>
 <div class="grid g4" style="margin-top:34px"><div class="card reveal"><div class="stat">ROI</div><div class="stat-label">New market: the Republic of Ireland</div></div><div class="card reveal"><div class="stat">3</div><div class="stat-label">Audience motivations, each with its own creative</div></div><div class="card reveal"><div class="stat">Meta</div><div class="stat-label">Lead forms routed into a client lifecycle system</div></div><div class="card reveal"><div class="stat">Live</div><div class="stat-label">Footage captured inside real training sessions</div></div></div>
 <div class="grid g2" style="margin-top:26px">
-<div class="card reveal"><div class="eyebrow">Overview</div><p>Pocus Frimley teaches doctors and healthcare professionals point-of-care ultrasound. The brief was to build the demand-generation engine behind their expansion into the Republic of Ireland, a market where they had no existing presence or following.</p></div>
+<div class="card reveal"><div class="eyebrow">Overview</div><p>Pocus Frimley teaches doctors and healthcare professionals point-of-care ultrasound. The brief was to build the demand-generation engine behind their expansion into the Republic of Ireland, a market where they had no existing presence or following. The ads promoted a one-day POCUS Taster Day at the Crowne Plaza, Dublin Airport on 3 October 2024: hands-on, expert-led training for GPs and GP trainees, with CPD recognition applied for.</p></div>
 <div class="card reveal"><div class="eyebrow">The challenge</div><p>Doctors are time-poor, resistant to cold outreach and gatekept by reception staff. They are also sceptical by training: content had to prove it was credible and that the course would concretely help them within about 60 seconds, or it would not be considered. Generic &ldquo;learn ultrasound&rdquo; messaging does not survive that.</p></div></div>
 <div class="card reveal" style="margin-top:22px"><div class="eyebrow">The approach</div><ul class="ticks">
 <li><strong>Three motivations, three creative angles:</strong> career advancement, patient-care impact, and belonging to a specialist community of practice, with segmentation by career stage and specialism underneath.</li>
@@ -309,12 +323,16 @@ work = head("Work","Live work, real numbers.","Case studies from client work and
 <li><strong>Ireland-only delivery:</strong> Meta lead generation geo-targeted to the Republic of Ireland, with a radius exclusion around Dublin and Carlow to keep spend inside the expansion market.</li>
 <li><strong>Competitor audit:</strong> live ads from an existing London private ultrasound provider reviewed through Meta&rsquo;s Ad Library to see what already worked in the category.</li>
 <li><strong>Lifecycle follow-up:</strong> leads captured through Meta lead forms and routed into a client lifecycle system (attract, engage, convert, retention, loyalty, nurture, grow), so follow-up matched where each lead was in their decision.</li></ul></div>
+<div class="reveal" style="margin-top:44px"><div class="eyebrow">Ad creative</div><h3 style="font-size:1.5rem">Creative for the Dublin Taster Day.</h3><p class="note" style="margin-top:8px">Real footage from training sessions, clear who-it-is-for copy, and a single call to action: book your spot.</p></div>
+<div class="asset-grid" style="margin-top:22px">{"".join(f'<figure class="reveal"><img src="assets/img/work/pocus-ad-{n}.jpg" alt="Pocus Taster Day ad creative {i}" width="720" height="720" loading="lazy"></figure>' for i,n in enumerate([2,3,4,5,7,8],1))}</div>
 <!-- POCUS RESULTS: add the real numbers (leads, cost per lead, students enrolled) from Ads Manager or the CRM, then add a result block here. -->
 </section>
 
 <section class="section wrap" id="final-judgment" style="padding-top:0"><div class="reveal"><div class="eyebrow">Our own brand</div><h2>Final Judgment</h2><p class="lead" style="margin-top:10px">A streetwear label founded and creative-directed end to end: a dark, gothic-script apocalyptic brand world built into hoodies, shot as street-style content.</p></div>
 {brand_head("fj-dark.png","Final Judgment logo",[("Website: finaljudgment.store","https://finaljudgment.store"),("Instagram: @finaljudgementt","https://www.instagram.com/finaljudgementt/")])}
 <div class="grid g3 fj-grid" style="margin-top:34px">{vids}</div>
+<div class="grid g2 center-items" style="margin-top:34px"><figure class="asset-fig reveal"><img src="assets/img/work/fj-antichrist-leopard-hood.jpg" alt="Final Judgment Antichrist leopard hoodie campaign creative" width="800" height="1422" loading="lazy"></figure>
+<div class="card reveal"><div class="eyebrow">Campaign creative</div><h3 style="font-size:1.5rem">The &ldquo;Antichrist&rdquo; leopard hood.</h3><p style="margin-top:12px">A limited-run hoodie with leopard-fur sleeves and hood trim. The creative pairs an on-model portrait with the product shot, a limited-quantity tag and a flash-sale call to action, built to stop the scroll on Instagram and TikTok.</p></div></div>
 <p class="note reveal">Street-style lookbook content shot on location: the Final Judgement wordmark and leopard-print trim on black hoodies, cut against moody macro inserts and scripture-style overlays.</p>
 </section>
 
