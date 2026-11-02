@@ -36,7 +36,7 @@ def icon(name, cls="", gold=False):
     return f'<div class="icon{" gold" if gold else ""}"><svg viewBox="0 0 24 24" aria-hidden="true">{ICONS[name]}</svg></div>'
 
 NAV = [("index.html","Home"),("models.html","Models"),("artists.html","Artists"),("brand-scaling.html","Brand Scaling"),
-       ("companies.html","Companies"),("results.html","Results"),("pricing.html","Pricing"),("join.html","Join the Network"),("contact.html","Contact")]
+       ("companies.html","Companies"),("work.html","Work"),("pricing.html","Pricing"),("join.html","Join the Network"),("contact.html","Contact")]
 
 def apply_url(t=None):
     return "apply.html" + ("?type=" + urllib.parse.quote(t) if t else "")
@@ -58,7 +58,7 @@ def footer():
   <p style="margin-top:14px"><a href="mailto:{EMAIL}" style="text-decoration:underline">{EMAIL}</a></p></div>
   <div><h4>Talent</h4><ul><li><a href="models.html">Models</a></li><li><a href="artists.html">Artists</a></li><li><a href="join.html">Join the Network</a></li></ul></div>
   <div><h4>Business</h4><ul><li><a href="brand-scaling.html">Brand Scaling</a></li><li><a href="companies.html">Companies</a></li><li><a href="pricing.html">Pricing</a></li></ul></div>
-  <div><h4>Agency</h4><ul><li><a href="results.html">Results</a></li><li><a href="apply.html">Apply</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
+  <div><h4>Agency</h4><ul><li><a href="work.html">Work</a></li><li><a href="about.html">About</a></li><li><a href="apply.html">Apply</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy.html">Privacy</a></li></ul></div>
 </div><div class="foot-bottom"><div class="wrap">&copy; <span id="yr"></span> SOLO Agency. Talent management and brand growth, under one roof.</div></div></footer>
 <script>document.getElementById("yr").textContent=new Date().getFullYear();</script>'''
 
@@ -77,7 +77,7 @@ def page(fn, title, desc, body, cur=None, og=None):
 <link rel="icon" type="image/png" href="assets/img/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@1,500&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/style.css?v=3">
+<link rel="stylesheet" href="assets/style.css?v=4">
 </head>
 <body>
 {header(cur or fn)}
@@ -147,14 +147,15 @@ home = f'''
 </section>
 
 <section class="section wrap" style="padding-block:40px 72px">
-  <div class="head-row reveal"><div><div class="eyebrow">Proof</div><h2>The numbers.</h2></div><a href="results.html">See full results &rarr;</a></div>
+  <div class="head-row reveal"><div><div class="eyebrow">Proof</div><h2>The numbers.</h2></div><a href="work.html">See full results &rarr;</a></div>
   {statcards([(1.5,"M+",1,"Views across 4 flagship videos for one client"),(20,"K",0,"Instagram followers, zero to 20K in 2 months"),(259,"",0,"Leads from 2 lead-gen campaigns we ran for our own brand"),(23.76,"%",2,"Peak lead conversion rate")])}
 </section>
 
 <section class="section wrap" style="padding-block:40px 72px">
-  <div class="head-row reveal"><div><div class="eyebrow">Creator network</div><h2>A live roster.</h2></div><a href="results.html">Meet the network &rarr;</a></div>
+  <div class="head-row reveal"><div><div class="eyebrow">Creator network</div><h2>A live roster.</h2></div><a href="work.html">Meet the network &rarr;</a></div>
   {creator_cards(2)}
 </section>
+<section class="section wrap" style="padding-block:20px 40px"><div class="band reveal" style="display:grid;gap:28px;align-items:center;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))"><div><div class="eyebrow">The founder</div><h2 style="font-size:1.9rem">You work with the person who runs your campaign.</h2><p class="lead" style="margin-top:12px;font-size:1rem">Tommaso Cristoni has grown accounts from zero, run lead-gen campaigns end to end, and sold out a retreat with Meta ads.</p><div class="btn-row"><a class="btn btn-ghost" href="about.html">About SOLO</a><a class="btn btn-ghost" href="work.html">See the work</a></div></div></div></section>
 {cta("Tell us where you are.","Every business is at a different stage. Apply and we will build a plan around yours.")}
 '''
 page("index.html", "SOLO Agency | Talent management and brand growth in London", "Mother-agency representation for models and artists, plus paid ads, content and digital growth for brands. London, remote-friendly.", home)
@@ -222,22 +223,102 @@ companies = head("For Companies","Full digital presence for businesses.","Social
 ''' + cta("Find out what a partnership looks like for you.","There is no price list. We build the plan around your business.", "Apply", apply_url("Company or service business"), ("How pricing works","pricing.html"))
 page("companies.html","Companies | Full digital presence and HR chatbot | SOLO Agency","Campaign management, content production, paid ads, reporting, and HR chatbot automation for businesses.", companies)
 
-# ---------------- RESULTS ----------------
+# ---------------- WORK (case studies) ----------------
 gal = [("influencers-portfolio.jpg","Creator network overview"),("results-analytics.jpg","Meta Ads analytics dashboard"),("results-growth.jpg","Instagram growth, 0 to 20K"),("client-sample-videos.jpg","Short-form video content samples")]
-results = head("Proof","Live work, real numbers.","Every figure comes from an active or recent engagement, or from our own brand.") + f'''
-<section class="section wrap" style="padding-top:20px">{statcards([(1.5,"M+",1,"Views across 4 flagship videos (Luvvette)"),(20,"K",0,"Instagram followers, zero to 20K in 2 months (Luvvette)"),(259,"",0,"Leads from 2 Meta campaigns (our own brand)"),(23.76,"%",2,"Peak lead conversion rate (our own brand)")])}
-<p class="note reveal">Average cost per lead &pound;2.89 to &pound;2.96 across 162K+ impressions, best ad set &pound;2.34.</p></section>
+tt = [("7458033527137832224","652K","tt-1"),("7457654119650692385","401K","tt-2"),("7460706638161349920","329K","tt-3"),("7458677421143870753","116K","tt-4")]
+tt_html = "".join(f'<a class="tt-card reveal" href="https://www.tiktok.com/@luvvettefashion/video/{v}" target="_blank" rel="noopener" aria-label="Watch the {n} view TikTok on TikTok"><img src="assets/img/tiktok/{i}.jpg?v=2" alt="Luvvette TikTok with {n} views" width="540" height="960" loading="lazy"><span class="tt-meta"><em>Watch on TikTok &rarr;</em></span></a>' for v,n,i in tt)
+pp_imgs = [("group.jpg","Purpose Path retreat group on a guided walk"),("venue.jpg","The retreat venue in the hills above M&aacute;laga"),("guided-walk.jpg","Coaching session on a guided walk"),("sound-bath.jpg","Breathwork and sound bath room set up"),("dinner.jpg","Retreat guests at dinner")]
+pp_gal = "".join(f'<figure class="{"g-main" if i==0 else ""}"><img src="assets/img/purpose-path/{f}" alt="{c}" loading="lazy"></figure>' for i,(f,c) in enumerate(pp_imgs))
+vids = "".join(f'<div class="vid reveal"><video controls playsinline preload="metadata"><source src="assets/video/final-judgment-0{i}.mp4" type="video/mp4"></video></div>' for i in (1,2,3))
+work = head("Work","Live work, real numbers.","Case studies from client work and from our own brand. Every figure comes from an active or recent engagement.") + f"""
+<section class="section wrap" style="padding-top:20px">{statcards([(1.5,"M+",1,"Views across 4 flagship videos (Luvvette)"),(20,"K",0,"Instagram followers, zero to 20K in 2 months (Luvvette)"),(44,"",0,"Leads from two retreat lead-gen campaigns (Purpose Path)"),(259,"",0,"Leads from 2 Meta campaigns (our own brand)")])}
+<div class="chips reveal" style="margin-top:26px"><a class="chip" href="#purpose-path">Purpose Path</a><a class="chip" href="#luvvette">Luvvette</a><a class="chip" href="#keiran">Keiran McRae</a><a class="chip" href="#final-judgment">Final Judgment</a></div></section>
+
+<section class="section wrap" id="purpose-path" style="padding-top:0"><div class="reveal"><div class="eyebrow">Case study 01</div><h2>Purpose Path</h2><p class="lead" style="margin-top:10px">Coaching and walking retreat &middot; M&aacute;laga, Spain &middot; Sep 2026 onwards</p></div>
+<div class="grid g4" style="margin-top:34px">
+<div class="card reveal"><div class="stat">100%</div><div class="stat-label">Remaining places booked on the October retreat</div></div>
+<div class="card reveal"><div class="stat" data-count="44" data-dec="0">44</div><div class="stat-label">Leads from two lead-gen campaigns</div></div>
+<div class="card reveal"><div class="stat">&euro;10.91</div><div class="stat-label">Blended cost per lead</div></div>
+<div class="card reveal"><div class="stat" data-count="2651" data-dec="0">2,651</div><div class="stat-label">Landing page views at &euro;0.08 each</div></div></div>
+<div class="grid g3 gallery pp-gallery" style="margin-top:30px">{pp_gal}</div>
+<h3 class="reveal" style="font-size:1.7rem;margin-top:44px;max-width:760px">Selling out a high-ticket retreat with a focused Meta funnel.</h3>
+<div class="grid g2" style="margin-top:26px">
+<div class="card reveal"><div class="eyebrow">Overview</div><p>Purpose Path is a four-day coaching and walking retreat in the hills above M&aacute;laga, run by three coaches. With the October 2026 retreat approaching and places still open, they brought us in on a one-month trial to close the gap before the booking deadline.</p></div>
+<div class="card reveal"><div class="eyebrow">The problem</div><p>Their Instagram was building trust, but organic reach alone was not filling a &euro;2,599 retreat in time. There was no paid acquisition, no landing page for cold traffic, and no system for tracking which leads turned into founder calls and bookings.</p></div></div>
+<div class="card reveal" style="margin-top:22px"><div class="eyebrow">The solution</div><ul class="ticks">
+<li><strong>Two Meta campaigns:</strong> a traffic campaign sending cold audiences to a dedicated landing page, and a lead-form campaign booking discovery calls.</li>
+<li><strong>Four creative angles:</strong> the three coaches, a creator&rsquo;s UGC testimonial, a price-to-value reframe, and a final-week scarcity push. Weak concepts were paused and budget moved to the winners.</li>
+<li><strong>Tight targeting:</strong> 35 to 60 year olds across the UK, Ireland and English-speaking Europe interested in coaching, leadership and wellness, plus a warm retargeting pool of profile visitors and engagers.</li>
+<li><strong>Dedicated landing page:</strong> built and hosted for cold traffic, so no changes were needed on the client&rsquo;s own site.</li>
+<li><strong>Lead tracking:</strong> every enquiry logged in a shared tracker within 24 hours, measured on attended founder calls and confirmed bookings, not clicks.</li></ul></div>
+<div class="ads-table-wrap reveal"><p class="note" style="margin:26px 0 10px;text-transform:uppercase;letter-spacing:.08em">Campaign results from Meta Ads Manager, amounts in euros</p><div class="tbl-scroll"><table class="tbl"><thead><tr><th>Campaign</th><th>Spend</th><th>Results</th><th>Cost / result</th><th>Impressions</th><th>Reach</th></tr></thead><tbody>
+<tr><td>October retreat &middot; Traffic to landing page</td><td>&euro;218.65</td><td>2,651 landing page views</td><td>&euro;0.08</td><td>74,996</td><td>55,877</td></tr>
+<tr><td>October retreat &middot; Discovery call lead form</td><td>&euro;249.99</td><td>26 leads</td><td>&euro;9.62</td><td>7,790</td><td>5,015</td></tr>
+<tr class="total"><td>April 2027 retreat &middot; Lead form (live)</td><td>&euro;230.00</td><td>18 leads</td><td>&euro;12.78</td><td>5,496</td><td>3,556</td></tr></tbody></table></div>
+<p class="note">October campaigns: reporting window 16 Sep to 15 Oct 2026, ended 3 Oct. April 2027 campaign: running since 18 Oct, figures to 1 Nov 2026 and still updating.</p></div>
+<div class="band reveal" style="margin-top:26px;padding:26px 30px"><div class="eyebrow">The result</div><p style="font-size:1.05rem">Every remaining place on the October retreat booked ahead of the retreat dates. The follow-on April 2027 campaign is live and has already generated 18 form leads at &euro;12.78 each.</p></div>
+<!-- PURPOSE PATH TESTIMONIALS: two slots reserved. Fill in text, name and role, then delete the hidden attribute on .case-quotes and each figure you use. -->
+<div class="case-quotes" hidden><div class="eyebrow" style="margin-top:30px">In their words</div><div class="grid g2">
+<figure class="card pp-quote" hidden><blockquote>&ldquo;Testimonial one goes here.&rdquo;</blockquote><figcaption><strong>Name</strong><br><span class="note">Role, Purpose Path</span></figcaption></figure>
+<figure class="card pp-quote" hidden><blockquote>&ldquo;Testimonial two goes here.&rdquo;</blockquote><figcaption><strong>Name</strong><br><span class="note">Role, Purpose Path</span></figcaption></figure></div></div></section>
+
+<section class="section wrap" id="luvvette" style="padding-top:0"><div class="reveal"><div class="eyebrow">Case study 02</div><h2>Luvvette</h2><p class="lead" style="margin-top:10px">Social media management across TikTok and Instagram. Content planning, production and distribution for a fashion brand.</p></div>
+<div class="grid g4" style="margin-top:34px"><div class="card reveal"><div class="stat" data-count="1.5" data-suffix="M+" data-dec="1">1.5M+</div><div class="stat-label">Combined views across 4 flagship TikToks</div></div><div class="card reveal"><div class="stat" data-count="20" data-suffix="K" data-dec="0">20K</div><div class="stat-label">Instagram followers, grown from 0 in 2 months</div></div><div class="card reveal"><div class="stat" data-count="24.6" data-suffix="K" data-dec="1">24.6K</div><div class="stat-label">Total TikTok likes across 52 videos</div></div><div class="card reveal"><div class="stat">4</div><div class="stat-label">Viral videos, each 100K+ views</div></div></div>
+<div class="grid g4 tt-grid" style="margin-top:30px">{tt_html}</div>
+<div class="btn-row"><a class="btn btn-ghost" href="https://www.tiktok.com/@luvvettefashion" target="_blank" rel="noopener">Luvvette on TikTok</a><a class="btn btn-ghost" href="https://www.instagram.com/luvvetteofficial/" target="_blank" rel="noopener">Luvvette on Instagram</a></div></section>
+
+<section class="section wrap" id="keiran" style="padding-top:0"><div class="reveal"><div class="eyebrow">Case study 03</div><h2>Keiran McRae</h2><p class="lead" style="margin-top:10px">@sturdythoughts &middot; from 3,247 to 31.6K followers and 13M+ likes, with real brand partnerships including StockX and McDonald&rsquo;s secured through the account.</p></div>
+<div class="grid g2 center-items" style="margin-top:34px"><div class="vid reveal" style="max-width:340px;margin-inline:auto"><video controls playsinline preload="metadata"><source src="assets/video/keiran-testimonial.mp4" type="video/mp4"></video></div>
+<div class="card reveal"><blockquote style="margin:0;font-size:1.05rem;color:var(--ink)">&ldquo;I&rsquo;ve been working with SOLO for the last six months. He&rsquo;s been helping me grow my following, monetise my brand, and scale my content. SOLO gave me the system to actually monetise my personal brand, to get to a place where I&rsquo;m able to consistently get brand deals and earn from coaching products.&rdquo;</blockquote>
+<p style="margin-top:18px"><strong>Keiran McRae</strong><br><span class="note">@sturdythoughts, creator</span></p>
+<div class="mini" style="margin-top:18px"><div><small>Followers, from 3.2K</small>31.6K</div><div><small>Total likes</small>13M+</div></div>
+<div class="chips"><span class="chip">StockX partnership</span><span class="chip">McDonald&rsquo;s partnership</span></div></div></div></section>
+
+<section class="section wrap" id="final-judgment" style="padding-top:0"><div class="reveal"><div class="eyebrow">Our own brand</div><h2>Final Judgment</h2><p class="lead" style="margin-top:10px">A streetwear label founded and creative-directed end to end: a dark, gothic-script apocalyptic brand world built into hoodies, shot as street-style content, and turned into a paid lead-gen engine.</p></div>
+<div class="grid g3 fj-grid" style="margin-top:34px">{vids}</div>
+<p class="note reveal">Street-style lookbook content shot on location: the Final Judgement wordmark and leopard-print trim on black hoodies, cut against moody macro inserts and scripture-style overlays.</p>
+<div class="reveal" style="margin-top:44px"><div class="eyebrow">Paid social</div><h3 style="font-size:1.6rem">Meta Ads performance</h3><p class="lead" style="margin-top:8px">Lead-generation campaigns built, tested and optimised end to end in Meta Ads Manager: audience segmentation, creative testing and budget allocation across ad sets.</p></div>
+<div class="grid g4" style="margin-top:26px"><div class="card reveal"><div class="stat" data-count="259" data-dec="0">259</div><div class="stat-label">Leads across two lead-gen campaigns</div></div><div class="card reveal"><div class="stat" data-count="2.92" data-dec="2">2.92</div><div class="stat-label">Blended cost per lead in &pound;, best ad set &pound;2.34</div></div><div class="card reveal"><div class="stat" data-count="22" data-suffix="%+" data-dec="0">22%+</div><div class="stat-label">Average lead conversion rate</div></div><div class="card reveal"><div class="stat" data-count="162" data-suffix="K+" data-dec="0">162K+</div><div class="stat-label">Impressions delivered</div></div></div>
+<div class="ads-table-wrap reveal"><p class="note" style="margin:26px 0 10px;text-transform:uppercase;letter-spacing:.08em">Ad set breakdown, live export from Meta Ads Manager</p><div class="tbl-scroll"><table class="tbl"><thead><tr><th>Amount spent</th><th>Results</th><th>Cost / result</th><th>Conv. rate (leads)</th><th>Impressions</th><th>Reach</th></tr></thead><tbody>
+<tr><td>&pound;11.19</td><td>4</td><td>&pound;2.80</td><td>20.00%</td><td>2,383</td><td>1,527</td></tr>
+<tr><td>&pound;84.19</td><td>29</td><td>&pound;2.90</td><td>25.22%</td><td>18,831</td><td>7,416</td></tr>
+<tr><td>&pound;87.08</td><td>26</td><td>&pound;3.35</td><td>21.85%</td><td>19,868</td><td>7,979</td></tr>
+<tr><td>&pound;51.18</td><td>15</td><td>&pound;3.41</td><td>18.29%</td><td>12,145</td><td>5,557</td></tr>
+<tr><td>&pound;68.90</td><td>22</td><td>&pound;3.13</td><td>17.89%</td><td>15,145</td><td>6,963</td></tr>
+<tr><td>&pound;112.20</td><td>48</td><td>&pound;2.34</td><td>22.64%</td><td>24,899</td><td>9,384</td></tr>
+<tr class="total"><td>&pound;416.74</td><td>144</td><td>&pound;2.89</td><td>21.46%</td><td>93,533</td><td>15,895</td></tr></tbody></table></div>
+<p class="note">Second campaign (not shown row by row): 115 leads &middot; &pound;2.96 cost per lead &middot; 23.76% conversion &middot; 69,048 impressions &middot; 20,186 reach. These campaigns were run for our own brand, so we never promise the same numbers for a client.</p></div></section>
+
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Clients</div><h2>Brands and businesses we have worked with.</h2></div>
-<div class="chips reveal" style="margin-top:26px"><span class="chip">Royal Mail</span><span class="chip">Luvvette</span><span class="chip">POCUS Frimley</span></div>
-<p class="note reveal">Creators we manage have also secured partnerships with StockX and McDonald&rsquo;s.</p></section>
-<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Creator network</div><h2>4 active creators, 204.2K+ combined followers, 20.4M+ combined likes.</h2></div><div style="margin-top:36px">{creator_cards(4)}</div>
-<div class="band reveal" style="margin-top:30px;border-color:rgba(217,169,63,.45);background:rgba(217,169,63,.1)"><div class="eyebrow" style="color:#8a6613">Growth case study</div><h3 style="font-size:1.5rem">3,247 to 31.6K followers and 13M+ likes with Keiran McRae (@sturdythoughts).</h3></div></section>
-<section class="section wrap narrow" style="padding-top:0"><div class="reveal"><div class="eyebrow">In their words</div></div>
-<blockquote class="card reveal" style="margin:0"><p style="font-size:1.15rem;color:var(--ink)">&ldquo;SOLO gave me the system to actually monetise my personal brand, to get to a place where I&rsquo;m able to consistently get brand deals and earn from coaching products.&rdquo;</p><p class="note" style="margin-top:16px"><strong style="color:var(--ink)">Keiran McRae</strong>, @sturdythoughts, creator</p></blockquote></section>
+<div class="chips reveal" style="margin-top:26px"><span class="chip">Royal Mail</span><span class="chip">Luvvette</span><span class="chip">Purpose Path</span><span class="chip">POCUS Frimley</span></div></section>
+<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Creator network</div><h2>4 active creators, 204.2K+ combined followers, 20.4M+ combined likes.</h2></div><div style="margin-top:36px">{creator_cards(4)}</div></section>
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Portfolio</div><h2>Campaign and analytics gallery.</h2></div>
 <div class="grid g3 gallery" style="margin-top:36px">{"".join(f'<figure class="reveal"><img src="assets/img/{f}" alt="{c}" loading="lazy" width="800" height="600"><figcaption>{c}</figcaption></figure>' for f,c in gal)}</div></section>
-''' + cta("Want results like these?","Apply and tell us where you are today.")
-page("results.html","Results | Live campaigns, creators and numbers | SOLO Agency","Real campaign results, the SOLO creator network, and case-study growth numbers: 1.5M+ views, 20K followers from zero, 259 leads.", results)
+""" + cta("Want results like these?","Apply and tell us where you are today.")
+page("work.html","Work | Case studies, results and creators | SOLO Agency","Case studies and real numbers: Purpose Path retreat lead-gen, Luvvette 1.5M+ views and 20K followers, Keiran McRae 13M+ likes, and Final Judgment Meta Ads results.", work)
+# old results.html now redirects
+open(os.path.join(ROOT,"results.html"),"w").write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=work.html"><link rel="canonical" href="work.html"><title>Work | SOLO Agency</title></head><body><a href="work.html">Continue to our work</a></body></html>')
+
+# ---------------- ABOUT ----------------
+tl = [("Growth Marketing Consultant","Purpose Path","Sep 2026 to present","Coaching and walking retreat, M&aacute;laga, Spain",["Built and ran the retreat&rsquo;s Meta Ads campaigns end to end: targeting, ad creative, and a dedicated landing page.","Booked out every remaining space on the October 2026 retreat, and generated 44 leads at a &euro;10.91 blended cost per lead across two lead-gen campaigns."]),
+      ("Talent Manager","thaticekidd and Madellina","Jul 2026 to present","Independent artist management",["Manage two independent creators end to end: bookings, content direction and career growth.","Secured a paid live show booking for thaticekidd."]),
+      ("Social Media Manager","Luvvette","Sep 2023 to Feb 2025","Client account, managed via SAVED Marketing",["Owned social media management across TikTok and Instagram, from content planning to publishing.","Produced four flagship TikTok videos totalling 1.5M+ views and grew Instagram to 20K+ followers."]),
+      ("Founder and Director","SAVED Marketing","Sep 2023 to Feb 2025","Digital marketing company for fashion and lifestyle clients",["Delivered social-first content and brand campaigns for clients including Luvvette and Royal Mail.","Directed and produced photoshoots across London studios and Canary Wharf."]),
+      ("CEO and Creative Director","Final Judgment","Sep 2023 to present","Streetwear label",["Direct short-form video and editorial content across Instagram and TikTok.","Run paid social campaigns in Meta Ads Manager with A/B testing and audience segmentation."])]
+tl_html = "".join(f'<div class="tl-item reveal"><div class="tl-top"><h3>{t} <span>{o}</span></h3><span class="note">{d}</span></div><p class="note" style="margin:4px 0 8px">{r}</p><ul class="ticks">' + "".join(f"<li>{x}</li>" for x in b) + '</ul></div>' for t,o,d,r,b in tl)
+about = head("About","Built by a founder who runs the campaigns.","SOLO is run by Tommaso Cristoni. You work with the person who plans, builds and reports on your campaign.") + f"""
+<section class="section wrap" style="padding-top:20px"><div class="grid g2 center-items"><div class="reveal"><img class="founder" src="assets/img/founder.jpg" alt="Tommaso Cristoni" width="768" height="1024" loading="lazy"></div>
+<div class="reveal"><div class="eyebrow">Founder</div><h2 style="font-size:2rem">Tommaso Cristoni</h2><p class="lead" style="margin-top:14px;font-size:1rem">London-based. I have grown accounts from zero, directed shoots from concept to delivery, and turned single posts into 1.5M+ views. Today I run SOLO: talent management for artists and creators, and paid social growth for brands and businesses.</p>
+<p class="note" style="margin-top:14px">BSc Business Management, University of Birmingham (2026). Languages: English and Italian (native), Spanish (professional).</p>
+<div class="btn-row"><a class="btn btn-gold" href="apply.html">Apply to work with us</a><a class="btn btn-ghost" href="work.html">See the work</a></div></div></div></section>
+<section class="section wrap narrow" style="padding-top:0"><div class="reveal"><div class="eyebrow">Experience</div><h2>What I have built.</h2></div><div class="timeline" style="margin-top:34px">{tl_html}</div></section>
+<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Toolkit</div><h2>Skills and tools.</h2></div><div class="grid g4" style="margin-top:30px">
+<div class="card reveal"><h3 style="font-size:1rem">Social and content</h3><p>Social media management, content creation, shoot direction, trend analysis, content distribution.</p></div>
+<div class="card reveal"><h3 style="font-size:1rem">Paid and performance</h3><p>Meta Ads Manager, TikTok Creative Center, A/B testing, audience segmentation, ROAS optimisation.</p></div>
+<div class="card reveal"><h3 style="font-size:1rem">Platforms and tools</h3><p>Shopify, Salesforce, HubSpot, advanced Excel, AI trend forecasting.</p></div>
+<div class="card reveal"><h3 style="font-size:1rem">Languages</h3><p>Italian (native), English (native), Spanish (professional).</p></div></div></section>
+""" + cta("Let's talk about your business.","Tell us where you are and we will tell you honestly if we can help.")
+page("about.html","About | Tommaso Cristoni, founder of SOLO Agency","Meet the founder of SOLO Agency: experience in social media management, Meta Ads, talent management and creative direction.", about)
 
 # ---------------- PRICING ----------------
 pricing = f'''
@@ -335,7 +416,7 @@ apply = head("Apply","Tell us where you are.","Five short steps. We read every a
 <p class="form-error" id="formError" role="alert"></p>
 <div class="form-nav" id="formNav"><button type="button" class="btn btn-ghost" id="back" style="visibility:hidden">Back</button><button type="button" class="btn btn-dark" id="next">Next</button><button type="submit" class="btn btn-gold" id="submit" hidden>Send application</button></div>
 </form>
-<div class="done form-card" id="done"><div class="eyebrow">Application received</div><h2>Thanks, we have it.</h2><p class="lead" style="margin-top:12px">We will read it properly and reply within 2 business days. In the meantime, have a look at our <a href="results.html" style="text-decoration:underline">results</a>.</p></div>
+<div class="done form-card" id="done"><div class="eyebrow">Application received</div><h2>Thanks, we have it.</h2><p class="lead" style="margin-top:12px">We will read it properly and reply within 2 business days. In the meantime, have a look at our <a href="work.html" style="text-decoration:underline">results</a>.</p></div>
 </section>
 '''
 page("apply.html","Apply | SOLO Agency","Apply to work with SOLO Agency. A quick five-step form so we can understand where you are and how we can help.", apply, "contact.html")
@@ -356,7 +437,7 @@ page("404.html","Page not found | SOLO Agency","Page not found.", nf)
 
 # sitemap + robots
 base = "https://soloplaier.github.io/solo-agency/"
-pages = ["index","models","artists","brand-scaling","companies","results","pricing","join","contact","apply","privacy"]
+pages = ["index","models","artists","brand-scaling","companies","work","about","pricing","join","contact","apply","privacy"]
 open(os.path.join(ROOT,"sitemap.xml"),"w").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + "".join(f"  <url><loc>{base}{p}.html</loc></url>\n" for p in pages) + "</urlset>\n")
 open(os.path.join(ROOT,"robots.txt"),"w").write(f"User-agent: *\nAllow: /\nSitemap: {base}sitemap.xml\n")
 print("built", len(pages)+1, "pages")
