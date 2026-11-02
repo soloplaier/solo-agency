@@ -336,8 +336,7 @@ work = head("Work","Live work, real numbers.","Case studies from client work and
 <p class="note reveal">Street-style lookbook content shot on location: the Final Judgement wordmark and leopard-print trim on black hoodies, cut against moody macro inserts and scripture-style overlays.</p>
 </section>
 
-<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Clients</div><h2>Brands and businesses we have worked with.</h2></div>
-<div class="chips reveal" style="margin-top:26px"><span class="chip">Royal Mail</span><span class="chip">Luvvette</span><span class="chip">Purpose Path</span><span class="chip">Pocus Frimley</span></div></section>
+
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">The roster</div><h2>The creators and artists we work with.</h2></div><div style="margin-top:36px">{creator_cards(4)}</div></section>
 
 """ + cta("Want results like these?","Apply and tell us where you are today.")
