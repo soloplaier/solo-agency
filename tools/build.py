@@ -246,7 +246,7 @@ companies = head("For Companies","Full digital presence for businesses.","Social
 <section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">Featured</div><h2>Numbers from client work.</h2>
 <div class="grid g2" style="margin-top:34px"><div><div class="stat" data-count="1.5" data-suffix="M+" data-dec="1">1.5M+</div><div class="stat-label">Views across 4 flagship videos, one client</div></div><div><div class="stat" data-count="20" data-suffix="K" data-dec="0">20K</div><div class="stat-label">Followers, zero to 20K in two months</div></div></div>
 <div class="eyebrow" style="margin-top:34px;color:var(--muted)">Clients</div><div class="chips"><span class="chip">Royal Mail</span><span class="chip">Luvvette</span><span class="chip">Pocus Frimley</span></div></div></section>
-''' + cta("Find out what a partnership looks like for you.","There is no price list. We build the plan around your business.", "Apply", apply_url("Company or service business"), ("How pricing works","pricing.html"))
+''' + cta("Find out what a partnership looks like for you.","Plans start at £3,000 a month. Apply and we will show you a draft of your website first.", "Apply", apply_url("Company or service business"), ("How pricing works","pricing.html"))
 page("companies.html","Companies | Full digital presence and HR chatbot | SOLO Agency","Campaign management, content production, paid ads, reporting, and HR chatbot automation for businesses.", companies)
 
 
@@ -385,41 +385,50 @@ ecom = head("E-commerce Specialist","We run your store's growth.","Growth operat
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">How it works</div><h2>From first call to growing store.</h2></div><div style="margin-top:40px">{steps([("Discovery","Where the store or community is today, what sells, and what you want next."),("Foundations","Store, tracking and offer set up properly before spending on ads."),("Launch","Creative and campaigns go live with a clear test plan."),("Operate and grow","Weekly optimisation, monthly reporting, and a plan to scale what works.")], True)}</div></section>
 
 <section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">Who this is for</div><h2 style="font-size:1.9rem">Stores and communities at any stage.</h2>
-<p class="lead" style="margin-top:14px">A new store that needs building and a first customer, an established shop that has stopped growing, or a creator with an engaged audience and nothing to sell yet. There is no price list: we agree terms around your stage, revenue and profit, so early-stage businesses are never priced out.</p>
+<p class="lead" style="margin-top:14px">A new store that needs building and a first customer, an established shop that has stopped growing, or a creator with an engaged audience and nothing to sell yet. Plans start at £3,000 a month plus ad spend, and we work with 5 clients at a time.</p>
 <div class="btn-row"><a class="btn btn-gold" href="apply.html?type=E-commerce%20store%20or%20community">Apply</a><a class="btn btn-ghost" href="pricing.html">How pricing works</a></div></div></section>
 """
-page("ecommerce.html","E-commerce Specialist | Growth operating and monetising communities | SOLO","E-commerce growth operating: Shopify build, Meta ads, creator content, reporting, and monetising communities. Terms built around your stage and revenue.", ecom)
+page("ecommerce.html","E-commerce Specialist | Growth operating and monetising communities | SOLO","E-commerce growth operating: Shopify build, Meta ads, creator content, reporting, and monetising communities. Plans from £3,000 a month.", ecom)
 
 # ---------------- PRICING ----------------
 pricing = f'''
-<section class="page-head wrap reveal"><div class="eyebrow">Pricing</div><h1>Pricing that grows with you.</h1>
-<p class="lead">There is no price list. What we charge depends on where your business is today and where you want to take it. We plan to work with you for years, so we set terms that fit your stage and grow as you do.</p>
-<div class="btn-row" style="justify-content:center"><a class="btn btn-gold" href="apply.html">Tell us where you are</a></div></section>
+<section class="page-head wrap reveal"><div class="eyebrow">Pricing</div><h1>Simple monthly pricing.</h1>
+<p class="lead">For businesses that already make good money but are invisible online. We build your website, turn the clips you film on the job into posts and ads, and send new enquiries straight to your phone.</p>
+<div class="btn-row" style="justify-content:center"><a class="btn btn-gold" href="apply.html">Apply for a place</a><a class="btn btn-ghost" href="work.html">See the work</a></div></section>
 
-<section class="section wrap" style="padding-top:30px"><div class="reveal"><div class="eyebrow">Our approach</div><h2>How we work out the fee</h2></div>
-<div style="margin-top:36px">{cards([("trend","Your stage","Pre-revenue, early, growing, or scaling. We meet you where you are and only take on what we can move."),
- ("money","Your revenue and profit","Our fee is tied to what the business actually earns, so an early-stage brand is never priced out and a larger one is never underserved."),
- ("target","Your goals","We agree what success looks like first, then scope the work around it.")], "g3", gold=False)}</div></section>
+<section class="section wrap" style="padding-top:30px"><div class="reveal"><div class="eyebrow">The offer</div><h2>The Job Pipeline</h2><p class="lead" style="margin-top:10px">Homeowners and customers in your area find you, see your work and send you their number, without you posting a thing.</p></div>
+<div style="margin-top:36px">{cards([("building","A website, before you pay","We build a draft of your website and show it to you first, so people who hear about you can find you and get in touch."),
+ ("camera","Your clips, edited and posted","You film short clips on your phone from a simple shot list we send. We edit them and post them on Instagram, TikTok and Facebook."),
+ ("megaphone","Meta lead ads","Ads to the right people in your area, with a form that sends you their name and number straight away."),
+ ("mail","A WhatsApp alert for every lead","Every new enquiry lands on your phone the moment it comes in, so you can call while they are still interested."),
+ ("bar","A monthly report","What you spent, how many enquiries came in, and what each one cost. No vanity numbers.")], "g3", gold=False)}</div></section>
 
-<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Options</div><h2>Ways we can work together</h2></div>
-<div style="margin-top:36px">{cards([("briefcase","Fixed monthly fee","A set monthly fee agreed from your revenue, reviewed as you grow."),
- ("share","Share of results","A share of the revenue or profit we help you generate. Ideal when cash is tight early on."),
- ("sparkles","A mix of both","A smaller fixed fee plus a share, so we are rewarded when you win.")], "g3")}</div>
-<p class="note reveal" style="margin-top:22px">For artists, models and creators we take an agreed share of what we help you earn, set out clearly in your contract. We walk you through it on your first call.</p></section>
+<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Plans</div><h2>Three levels, one way of working</h2></div>
+<div style="margin-top:36px">{cards([("trend","Start: &pound;3,000 a month","The full Job Pipeline: website, your clips edited and posted, Meta lead ads, lead alerts and a monthly report."),
+ ("chart","Growth: &pound;5,000 a month","Everything in Start, with more content each week and more campaigns running at once, for businesses ready to push harder."),
+ ("star","Scale: up to &pound;10,000 a month","For bigger budgets, more locations or more services. Scoped with you on a call.")], "g3")}</div>
+<p class="note reveal" style="margin-top:22px">Ad spend is on top and is paid to Meta directly, in your own name. The first 3 months are the minimum term, then it runs month to month.</p></section>
+
+<section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">Our promise</div><h2 style="font-size:1.9rem">If you do your part and it is not working, the next month is on us.</h2>
+<p class="lead" style="margin-top:14px">Send us clips every week and keep the agreed ad spend running for 60 days. If enquiries still are not coming through, we waive the next month&rsquo;s management fee and keep working. One month, once. We cannot promise a number of jobs or leads, but you will always see exactly what every pound brings in.</p></div></section>
+
+<section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">Who it is for</div><h2>Businesses that can invest &pound;3,000 or more a month</h2>
+<p class="lead" style="margin-top:14px">Trades, construction and roofing companies, retreats and service businesses, and e-commerce brands. If the work is good and the money is there, we can help people find it. We take 5 clients at a time, so every account gets the founder&rsquo;s attention.</p></div>
+<div style="margin-top:36px">{steps([("Apply","Two minutes. Tell us about the business and what you can invest."),("Draft website","We build a draft of your site and show it to you before you pay anything."),("Film and launch","You film clips from our shot list. We edit, post and launch the ads."),("Report and grow","A monthly report on spend, enquiries and cost per enquiry, and a plan for next month.")], True)}</div></section>
 
 <section class="section wrap" style="padding-top:0"><div class="band reveal"><h2 style="font-size:1.9rem">What stays the same</h2>
-<div class="grid g2" style="margin-top:24px"><p><strong>Ad spend is yours.</strong><br><span class="note">Always paid directly to Meta, in your own name.</span></p><p><strong>You own everything.</strong><br><span class="note">Your accounts, content and data stay yours.</span></p>
-<p><strong>Clear terms.</strong><br><span class="note">Written terms before we start, with a short initial term.</span></p><p><strong>Honest reporting.</strong><br><span class="note">Monthly reports, and we revisit the fee against the results.</span></p></div></div></section>
+<div class="grid g2" style="margin-top:24px"><p><strong>Ad spend is yours.</strong><br><span class="note">Always paid directly to Meta, in your own name, never marked up.</span></p><p><strong>You own everything.</strong><br><span class="note">Your website, accounts, content and data stay yours.</span></p>
+<p><strong>Clear terms.</strong><br><span class="note">Written terms before we start: 3 months, then month to month.</span></p><p><strong>Honest reporting.</strong><br><span class="note">Every month, in plain numbers.</span></p></div></div></section>
 
 <section class="section wrap narrow" style="padding-top:0"><h2 class="reveal">Common questions</h2><div style="margin-top:24px">{faq([
- ("Is ad spend included?","No. Ad spend is paid directly to Meta from your own account and is never marked up. Our fee covers strategy, creative, editing and management."),
- ("Can I start small?","Yes. Many of the businesses we work with are early stage. Tell us what you can comfortably invest and we will build around it."),
- ("How do you decide the fee?","From your application and a short call. We look at where your business is, its revenue and profit, and your goals, then propose terms that make sense for both sides."),
- ("Do I need to share my numbers?","Rough ranges on the form are enough. We go through detail on the call, in confidence."),
- ("What is the contract length?","A short initial term agreed in writing, then month to month."),
- ("Is it right for me?","The best way to find out is to apply. It takes two minutes.")])}</div></section>
-''' + cta("Not sure where you fit?","Apply and we will tell you honestly.", "Apply now")
-page("pricing.html","Pricing that grows with you | SOLO Agency","No fixed price list. SOLO Agency builds its fee around your stage, revenue, profit and goals, so early-stage businesses are never priced out.", pricing)
+ ("Is ad spend included?","No. Ad spend is paid directly to Meta from your own account and is never marked up. Our fee covers the website, editing, posting, campaign management and reporting."),
+ ("Do I have to film?","Yes, but it is quick. We send you a simple shot list and you film short clips on your phone while you work. We do everything after that."),
+ ("I don't have a website or social media.","That is fine, and common. We build the website first and set up the accounts as part of the work."),
+ ("Can you guarantee jobs?","No one honestly can. What we promise is the work we control, plus the next month free if you do your part for 60 days and enquiries still are not coming through."),
+ ("Can I start below &pound;3,000?","Our starting plan is &pound;3,000 a month. If that is not right for your business yet, we will tell you honestly."),
+ ("What is the contract length?","3 months minimum, then month to month.")])}</div></section>
+''' + cta("Want one of the 5 places?","Apply and we will show you a draft of your website before you pay anything.", "Apply now")
+page("pricing.html","Pricing | The Job Pipeline from £3,000 a month | SOLO Agency","The Job Pipeline: website, your clips edited and posted, Meta lead ads and monthly reporting. From £3,000 a month plus ad spend. 5 clients at a time.", pricing)
 
 # ---------------- JOIN ----------------
 join = head("Creator Network","Deals for uni students and fashion creators.","Paid campaigns, gifted product, and referral perks. No cold pitching.") + f'''
@@ -471,7 +480,7 @@ apply = head("Apply","Tell us where you are.","Five short steps. We read every a
 <div class="sub-q">Average monthly revenue</div>{radios("revenue",["None yet","Under £1k","£1k to £5k","£5k to £20k","£20k to £50k","£50k+","Prefer to discuss"])}
 <div class="sub-q">Average monthly profit</div>{radios("profit",["Not profitable yet","Break-even","Under £1k","£1k to £5k","£5k+","Not sure"])}
 <div class="sub-q">Current monthly marketing spend</div>{radios("spend",["None","Under £250","£250 to £1k","£1k to £3k","£3k+"])}
-<div class="sub-q">What could you comfortably invest each month to grow?</div>{radios("invest",["Not sure yet, happy to start small","Under £250","£250 to £1k","£1k to £3k","£3k+"])}</fieldset>
+<div class="sub-q">What could you comfortably invest each month to grow?</div>{radios("invest",["Under £3k","£3k to £5k","£5k to £10k","£10k+","Prefer to discuss"])}</fieldset>
 
 <fieldset><legend>What do you need?</legend><p class="hint">Pick as many as you like.</p>{checks("needs",["Meta ads","E-commerce growth","Monetising a community","Content creation","Social media management","Website","Artist or talent management","Creator brand deals","Not sure, advise me"])}
 <label class="field" for="a-block">What is the biggest thing holding you back right now?<textarea id="a-block" name="blocker" required></textarea></label>
