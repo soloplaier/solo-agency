@@ -110,7 +110,17 @@
       back.style.visibility = i === 0 ? "hidden" : "visible"; next.hidden = i === steps.length - 1; submit.hidden = i !== steps.length - 1; err.textContent = "";
       window.scrollTo({ top: af.getBoundingClientRect().top + window.scrollY - 110, behavior: "smooth" });
     }
+    var BIZ = ["Clothing or product brand", "E-commerce store or community", "Company or service business"];
+    function notFit() {
+      var tp = checked(af, "type")[0] || "", inv = checked(af, "invest")[0] || "";
+      if (BIZ.indexOf(tp) > -1 && inv === "Under \u00a33k") {
+        err.textContent = "Our plans start at \u00a33,000 a month plus ad spend, so we are not the right fit yet. Come back when you are ready to invest more.";
+        return true;
+      }
+      return false;
+    }
     function valid(i) {
+      if (i === 2 && notFit()) return false;
       var ok = true, s = steps[i];
       [].slice.call(s.querySelectorAll("[required]")).forEach(function (el) {
         if (el.type === "radio" || el.type === "checkbox") return;
@@ -125,7 +135,7 @@
     next.addEventListener("click", function () { if (valid(cur)) show(cur + 1); });
     back.addEventListener("click", function () { show(cur - 1); });
     af.addEventListener("submit", function (e) {
-      e.preventDefault(); if (!valid(cur)) return;
+      e.preventDefault(); if (notFit() || !valid(cur)) return;
       if (val(af, "_honey")) return;
       var data = {
         _subject: "New application: " + val(af, "name") + ", " + (checked(af, "type")[0] || "") + ", revenue " + (checked(af, "revenue")[0] || "n/a"),

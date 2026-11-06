@@ -84,7 +84,7 @@ def page(fn, title, desc, body, cur=None, og=None):
 {body}
 </main>
 {footer()}
-<script src="assets/main.js?v=4" defer></script>
+<script src="assets/main.js?v=5" defer></script>
 </body>
 </html>
 '''
@@ -155,6 +155,7 @@ home = f'''
   <h1 class="reveal">Talent, brands, and the <span class="serif">campaigns</span> that connect them.</h1>
   <p class="lead reveal">Representation for artists and models. Growth operating for stores, brands and communities. <strong style="color:var(--ink);font-weight:600">Proof over pitch.</strong></p>
   <div class="btn-row reveal"><a class="btn btn-gold" href="apply.html">Apply to work with us</a><a class="btn btn-ghost" href="#divisions">See what we do</a></div>
+  <p class="note reveal" style="margin-top:18px">For established businesses and brands. Plans from &pound;3,000 a month plus ad spend. 5 clients at a time.</p>
 </div></section>
 
 <section class="section wrap" id="divisions">
@@ -172,9 +173,9 @@ home = f'''
   {creator_cards(4)}
 </section>
 <section class="section wrap" style="padding-block:20px 40px"><div class="band reveal" style="display:grid;gap:28px;align-items:center;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr))"><div><div class="eyebrow">The founder</div><h2 style="font-size:1.9rem">You work with the person who runs your campaign.</h2><p class="lead" style="margin-top:12px;font-size:1rem">Tommaso Cristoni has grown accounts from zero, run lead-gen campaigns end to end, and sold out a retreat with Meta ads.</p><div class="btn-row"><a class="btn btn-ghost" href="about.html">About SOLO</a><a class="btn btn-ghost" href="work.html">See the work</a></div></div></div></section>
-{cta("Tell us where you are.","Every business is at a different stage. Apply and we will build a plan around yours.")}
+{cta("Apply for a place.","We take 5 clients at a time, for established businesses. Plans start at £3,000 a month plus ad spend.")}
 '''
-page("index.html", "SOLO Agency | Talent management and brand growth in London", "Mother-agency representation for models and artists, plus paid ads, content and digital growth for brands. London, remote-friendly.", home)
+page("index.html", "SOLO Agency | Talent management and brand growth in London", "Mother-agency representation for models and artists, plus paid ads, content and digital growth for established brands. Plans from £3,000 a month. London, remote-friendly.", home)
 
 # ---------------- MODELS ----------------
 models = head("Model Management","Booked, not just noticed.","Mother-agency representation: scouting, development, bookings.") + f'''
@@ -384,8 +385,8 @@ ecom = head("E-commerce Specialist","We run your store's growth.","Growth operat
 
 <section class="section wrap" style="padding-top:0"><div class="reveal"><div class="eyebrow">How it works</div><h2>From first call to growing store.</h2></div><div style="margin-top:40px">{steps([("Discovery","Where the store or community is today, what sells, and what you want next."),("Foundations","Store, tracking and offer set up properly before spending on ads."),("Launch","Creative and campaigns go live with a clear test plan."),("Operate and grow","Weekly optimisation, monthly reporting, and a plan to scale what works.")], True)}</div></section>
 
-<section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">Who this is for</div><h2 style="font-size:1.9rem">Stores and communities at any stage.</h2>
-<p class="lead" style="margin-top:14px">A new store that needs building and a first customer, an established shop that has stopped growing, or a creator with an engaged audience and nothing to sell yet. Plans start at £3,000 a month plus ad spend, and we work with 5 clients at a time.</p>
+<section class="section wrap" style="padding-top:0"><div class="band reveal"><div class="eyebrow">Who this is for</div><h2 style="font-size:1.9rem">Established stores and communities ready to scale.</h2>
+<p class="lead" style="margin-top:14px">A store that already sells and wants to scale, an established shop that has stopped growing, or a creator with a large, engaged audience ready to launch a product. Plans start at £3,000 a month plus ad spend, and we work with 5 clients at a time.</p>
 <div class="btn-row"><a class="btn btn-gold" href="apply.html?type=E-commerce%20store%20or%20community">Apply</a><a class="btn btn-ghost" href="pricing.html">How pricing works</a></div></div></section>
 """
 page("ecommerce.html","E-commerce Specialist | Growth operating and monetising communities | SOLO","E-commerce growth operating: Shopify build, Meta ads, creator content, reporting, and monetising communities. Plans from £3,000 a month.", ecom)
@@ -461,7 +462,7 @@ def radios(name, opts, req=True):
     return '<div class="choices">' + "".join(f'<label class="choice"><input type="radio" name="{name}" value="{html.escape(o)}"{" required" if req else ""}><span>{o}</span></label>' for o in opts) + '</div>'
 def checks(name, opts):
     return '<div class="choices">' + "".join(f'<label class="choice"><input type="checkbox" name="{name}" value="{html.escape(o)}" data-any><span>{o}</span></label>' for o in opts) + '</div>'
-apply = head("Apply","Tell us where you are.","Five short steps. We read every application and reply within 2 business days. Rough answers are fine.") + f'''
+apply = head("Apply","Tell us where you are.","Five short steps. We work with established businesses and take 5 clients at a time. We read every application and reply within 2 business days.") + f'''
 <section class="section wrap narrow" style="padding-top:10px">
 <form class="form-card" id="applyForm" novalidate>
 <div class="progress"><span id="bar"></span></div><div class="step-count"><span id="stepCount">Step 1 of 5</span><span id="stepPct">20%</span></div>
@@ -475,10 +476,10 @@ apply = head("Apply","Tell us where you are.","Five short steps. We read every a
 
 <fieldset><legend>Which best describes you?</legend><p class="hint">Pick one.</p>{radios("type",["Clothing or product brand","E-commerce store or community","Company or service business","Creator or influencer","Artist or musician","Model","Something else"])}</fieldset>
 
-<fieldset><legend>Where are you right now?</legend><p class="hint">There is no wrong answer. Early stage is welcome, and rough ranges are fine.</p>
-<div class="sub-q">Stage</div>{radios("stage",["Just an idea","Pre-revenue","Early, first customers","Growing steadily","Scaling"])}
-<div class="sub-q">Average monthly revenue</div>{radios("revenue",["None yet","Under £1k","£1k to £5k","£5k to £20k","£20k to £50k","£50k+","Prefer to discuss"])}
-<div class="sub-q">Average monthly profit</div>{radios("profit",["Not profitable yet","Break-even","Under £1k","£1k to £5k","£5k+","Not sure"])}
+<fieldset><legend>Where are you right now?</legend><p class="hint">Rough ranges are fine. For businesses, plans start at £3,000 a month plus ad spend.</p>
+<div class="sub-q">Stage</div>{radios("stage",["Established and profitable","Growing fast","Scaling","Early, first customers","Pre-revenue or an idea"])}
+<div class="sub-q">Average monthly revenue</div>{radios("revenue",["Under £10k","£10k to £20k","£20k to £50k","£50k to £100k","£100k+","Prefer to discuss"])}
+<div class="sub-q">Average monthly profit</div>{radios("profit",["Not profitable yet","Break-even","Under £5k","£5k to £20k","£20k+","Not sure"])}
 <div class="sub-q">Current monthly marketing spend</div>{radios("spend",["None","Under £250","£250 to £1k","£1k to £3k","£3k+"])}
 <div class="sub-q">What could you comfortably invest each month to grow?</div>{radios("invest",["Under £3k","£3k to £5k","£5k to £10k","£10k+","Prefer to discuss"])}</fieldset>
 
